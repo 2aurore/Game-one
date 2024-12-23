@@ -70,12 +70,10 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
-
-/Game-One/[Ll]ibrary/
-/Game-One/[Tt]emp/
-/Game-One/[Oo]bj/
-/Game-One/[Bb]uild/
-/Game-One/[Bb]uilds/
-/Game-One/[Ll]ogs/
-/Game-One/[Uu]ser[Ss]ettings
+/[Aa]ssets/Animated Loading Icons/
+/[Aa]ssets/GUIPack-Clean&Minimalist/
+/[Aa]ssets/Ida Faber/
+/[Aa]ssets/Animated Loading Icons.meta
+/[Aa]ssets/GUIPack-Clean&Minimalist.meta
+/[Aa]ssets/Ida Faber.meta
 
