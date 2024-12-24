@@ -71,9 +71,12 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 /[Aa]ssets/Animated Loading Icons/
-/[Aa]ssets/GUIPack-Clean&Minimalist/
-/[Aa]ssets/Ida Faber/
 /[Aa]ssets/Animated Loading Icons.meta
+/[Aa]ssets/GUIPack-Clean&Minimalist/
 /[Aa]ssets/GUIPack-Clean&Minimalist.meta
+/[Aa]ssets/Ida Faber/
 /[Aa]ssets/Ida Faber.meta
+/[Aa]ssets/FemaleMovementAnimsetPro/
+/[Aa]ssets/FemaleMovementAnimsetPro.meta
+
 
