@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 359356c3571bd714d87ff28082ab4f8e
 ModelImporter:
-  serializedVersion: 19301
+  serializedVersion: 22200
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
@@ -11,22 +11,22 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: MAT_TWG_ACCESSORIES
-    second: {fileID: 2100000, guid: 2572c9d8cc38fbe4983b31a59ccf8e85, type: 2}
+    second: {fileID: 2100000, guid: 2e45e05e17aedce46b969365f89eb513, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: MAT_TWG_BODY
-    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+    second: {fileID: 2100000, guid: 25fb5961312dd524a965570b72977cf5, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: MAT_TWG_BODY1
-    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+    second: {fileID: 2100000, guid: 25fb5961312dd524a965570b72977cf5, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: MAT_TWG_BODY3
-    second: {fileID: 2100000, guid: 91ab31e7f7d4c2d4eb4208faa171c147, type: 2}
+    second: {fileID: 2100000, guid: 25fb5961312dd524a965570b72977cf5, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -36,12 +36,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: MAT_TWG_EYES2
-    second: {fileID: 2100000, guid: 29a19dd82702f8c4babfac3e8af6a080, type: 2}
+    second: {fileID: 2100000, guid: ffb2b4964627d2848b416761445cb329, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: MAT_TWG_HAIR
-    second: {fileID: 2100000, guid: 96f3a10492b8ac745a2663d96f88fbfa, type: 2}
+    second: {fileID: 2100000, guid: 901d96cfe9830894fa34f83e84caf0e0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -51,7 +51,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: MAT_TWG_HEAD2
-    second: {fileID: 2100000, guid: 50fbecae663cdc949b9c72dd4388a26b, type: 2}
+    second: {fileID: 2100000, guid: b92a0f5e30e13884fbf845aa3c345912, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -61,17 +61,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: MAT_TWG_LASHES2
-    second: {fileID: 2100000, guid: 6fa5faaf4f80ece4c9c7ab7b94ddd2ff, type: 2}
+    second: {fileID: 2100000, guid: dda18f70e5bdffe4f9a6aa2f4a208103, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: MAT_TWG_PANTS_02
-    second: {fileID: 2100000, guid: 90ff7cf7733d06449bda17dc94573043, type: 2}
+    second: {fileID: 2100000, guid: 70a2272d53ebb85418ed0279f0360851, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: MAT_TWG_SHOES_02
-    second: {fileID: 2100000, guid: 126cab256ed6c2e47ab2fad75754d589, type: 2}
+    second: {fileID: 2100000, guid: 40d8ef5e27ab161409ad02ca3930bae5, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -81,7 +81,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: MAT_TWG_TEARS2
-    second: {fileID: 2100000, guid: 80c69044e9f4a4d49a24a2eabc180f3c, type: 2}
+    second: {fileID: 2100000, guid: b41c9fcd44daafe408468c888489cd56, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -91,12 +91,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: MAT_TWG_TEETH2
-    second: {fileID: 2100000, guid: fc399ff94963eb543b0235c5cfb96e9b, type: 2}
+    second: {fileID: 2100000, guid: 985b53d3ffc224e4d974802bc9493b5a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: MAT_TWG_TOP_02
-    second: {fileID: 2100000, guid: 16fa24cf2be95f243bb3cba18bfc2ac3, type: 2}
+    second: {fileID: 2100000, guid: f776ef999b7a0e244a69482081eee46f, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -107,6 +107,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -132,27 +133,35 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
     importLights: 1
+    nodeNameCollisionStrategy: 0
     fileIdsGeneration: 2
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     keepQuads: 0
     weldVertices: 1
+    bakeAxisConversion: 0
     preserveHierarchy: 0
     skinWeightsMode: 0
     maxBonesPerVertex: 4
     minBoneWeight: 0.001
+    optimizeBones: 1
     meshOptimizationFlags: -1
     indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 0
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -1256,6 +1265,9 @@ ModelImporter:
   animationType: 3
   humanoidOversampling: 1
   avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
