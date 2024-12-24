@@ -6,12 +6,20 @@ namespace ONE
 {
     public class InputSystem : SingletonBase<InputSystem>
     {
+
+        public System.Action OnRightMouseButtonDown;
+
         public System.Action OnEscapeInput;
         public System.Action OnTab;
         public System.Action<float> OnScrollWheel;
 
         private void Update()
         {
+            if (Input.GetMouseButtonDown(1))
+            {
+                OnRightMouseButtonDown?.Invoke();
+            }
+
             // esc key
             if (Input.GetKeyUp(KeyCode.Escape))
             {
