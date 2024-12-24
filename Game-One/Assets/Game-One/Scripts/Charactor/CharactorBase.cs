@@ -34,7 +34,7 @@ namespace ONE
             smoothVertical = Mathf.Lerp(smoothVertical, inputDirection.z, Time.deltaTime * 10f);
 
             animator.SetFloat("Equip Blend", IsEquip ? 1.0f : 0.0f);
-            animator.SetFloat("Run Blend", IsRun ? 1.0f : 0.0f);
+            animator.SetFloat("Running Blend", IsRun ? 1.0f : 0.0f);
             animator.SetFloat("Horizontal", smoothHorizontal);
             animator.SetFloat("Vertical", smoothVertical);
         }
