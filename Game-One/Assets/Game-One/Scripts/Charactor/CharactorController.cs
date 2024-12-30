@@ -9,6 +9,9 @@ namespace ONE
     {
         private CharactorBase linkedCharactor;
 
+        public LayerMask groundLayer;
+
+
         private void Awake()
         {
             linkedCharactor = GetComponent<CharactorBase>();
@@ -17,6 +20,7 @@ namespace ONE
         private void Start()
         {
             InputSystem.Singleton.OnRightMouseButtonDown += RightMouseButtonEvent;
+            InputSystem.Singleton.OnSpaceInput += SpaceInputEvent;
         }
 
         private void OnDestroy()
@@ -24,6 +28,7 @@ namespace ONE
             if (InputSystem.Singleton)
             {
                 InputSystem.Singleton.OnRightMouseButtonDown -= RightMouseButtonEvent;
+                InputSystem.Singleton.OnSpaceInput -= SpaceInputEvent;
             }
         }
 
@@ -34,10 +39,32 @@ namespace ONE
 
         private void RightMouseButtonEvent()
         {
-            // TODO : Mouse 우클릭 이벤트 처리
-            // TODO : 카메라 상에서 보았을 때, 우클릭 위치[스크린상에서의 위치] => 3D 공간에서의 위치로 변환
-            // TODO : LinkedCharacter 한테 이동 명령[좌표 전달]을 한다.
-            
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000f, groundLayer, QueryTriggerInteraction.Ignore))
+            {
+                // Ray 가 Ground Layer에 부딪힌 경우.
+                linkedCharactor.SetDestination(hitInfo.point);
+                lastRightClickPoint = hitInfo.point;
+            }
+        }
+
+        private void SpaceInputEvent()
+        {
+            Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(mouseRay, out RaycastHit hitInfo, 1000f, groundLayer, QueryTriggerInteraction.Ignore))
+            {                
+                Vector3 direction = (hitInfo.point - linkedCharactor.transform.position).normalized;
+                float yAxisAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+                linkedCharactor.Dash(yAxisAngle);
+            }
+        }
+
+        private Vector3 lastRightClickPoint;
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = new Color(1f, 0f, 0f, 0.7f);
+            Gizmos.DrawSphere(lastRightClickPoint, 0.5f);
         }
     }
 }

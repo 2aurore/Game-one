@@ -14,6 +14,8 @@ namespace ONE
         private void Awake()
         {
             agent = GetComponent<NavMeshAgent>();
+            //agent.updatePosition;
+            agent.updateRotation = false;
         }
 
         private void Update()
