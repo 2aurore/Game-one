@@ -13,7 +13,7 @@ namespace ONE
         [SerializeField] private Cinemachine.CinemachineVirtualCamera playerCamera;
 
 
-        private Cinemachine.Cinemachine3rdPersonFollow thirdPersonFollow;
+        // private Cinemachine.Cinemachine3rdPersonFollow thirdPersonFollow;
         private float targetCameraSide = 1f;
         private bool isRightSide = true;
         private float targetCameraDistance;
@@ -25,8 +25,8 @@ namespace ONE
 
         private void Start()
         {
-            thirdPersonFollow = playerCamera.GetCinemachineComponent<Cinemachine.Cinemachine3rdPersonFollow>();
-            targetCameraDistance = thirdPersonFollow.CameraDistance;
+            // thirdPersonFollow = playerCamera.GetCinemachineComponent<Cinemachine.Cinemachine3rdPersonFollow>();
+            // targetCameraDistance = thirdPersonFollow.CameraDistance;
 
             InputSystem.Singleton.OnTab += ToggleCameraSide;
             InputSystem.Singleton.OnScrollWheel += CameraZoomInOut;
@@ -34,8 +34,8 @@ namespace ONE
 
         public void Update()
         {
-            thirdPersonFollow.CameraSide = Mathf.Lerp(thirdPersonFollow.CameraSide, targetCameraSide, Time.deltaTime * 5f);
-            thirdPersonFollow.CameraDistance = Mathf.Lerp(thirdPersonFollow.CameraDistance, targetCameraDistance, Time.deltaTime * 5f);
+            // thirdPersonFollow.CameraSide = Mathf.Lerp(thirdPersonFollow.CameraSide, targetCameraSide, Time.deltaTime * 5f);
+            // thirdPersonFollow.CameraDistance = Mathf.Lerp(thirdPersonFollow.CameraDistance, targetCameraDistance, Time.deltaTime * 5f);
         }
 
         private void OnDestroy()
