@@ -26,6 +26,7 @@ namespace ONE
         {
             animator = GetComponent<Animator>();
             navAgent = GetComponent<NavMeshAgent>();
+            navAgent.updateRotation = false;
         }
 
         private void Update()
@@ -37,6 +38,8 @@ namespace ONE
             animator.SetFloat("Running Blend", IsRun ? 1.0f : 0.0f);
             animator.SetFloat("Horizontal", smoothHorizontal);
             animator.SetFloat("Vertical", smoothVertical);
+
+            RotateToNextPoint();
         }
 
         public void Move(Vector2 input, float yAxisAngle)
@@ -44,9 +47,41 @@ namespace ONE
 
         }
 
+        public void RotateToNextPoint()
+        {
+            Debug.Log("Nav Agent Path Data");
+            for (int i = 0; i < navAgent.path.corners.Length; i++)
+            {
+                Debug.Log($"Path Corners [{i}] : {navAgent.path.corners[i]}");
+            }
+            Debug.Log("Nav Agent Path Data End");
+
+            if (navAgent.path.corners.Length > 1)
+            {
+                Vector3 direction = (navAgent.path.corners[1] - transform.position).normalized;
+                direction.y = 0;
+                transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+            }
+        }
+
         public void SetDestination(Vector3 destination)
         {
             navAgent.SetDestination(destination);
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (navAgent)
+            {
+                Gizmos.color = new Color(0f, 1f, 0f, 0.7f);
+
+                for (int i = 0; i < navAgent.path.corners.Length; i++)
+                {
+                    Gizmos.DrawSphere(navAgent.path.corners[i], 0.5f);
+                }
+
+            }
+
         }
     }
 }
