@@ -2225,11 +2225,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2240899603191250200, guid: 08e48271b88b22b4f9832ab49e8f5e6b, type: 3}
       propertyPath: dashSpeed
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2240899603191250200, guid: 08e48271b88b22b4f9832ab49e8f5e6b, type: 3}
       propertyPath: dashDuration
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2563036586434126047, guid: 08e48271b88b22b4f9832ab49e8f5e6b, type: 3}
       propertyPath: groundLayer.m_Bits
