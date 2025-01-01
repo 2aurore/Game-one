@@ -19,18 +19,33 @@ namespace ONE
         private void Start()
         {
             InputSystem.Singleton.OnRightMouseButtonDown += RightMouseButtonEvent;
+            InputSystem.Singleton.OnSpaceInput += SpaceInputEvent;
         }
+
 
         private void OnDestroy()
         {
             if (InputSystem.Singleton)
             {
                 InputSystem.Singleton.OnRightMouseButtonDown -= RightMouseButtonEvent;
+                InputSystem.Singleton.OnSpaceInput -= SpaceInputEvent;
             }
         }
 
         private void Update()
         {
+
+        }
+
+        private void SpaceInputEvent()
+        {
+            Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(mouseRay, out RaycastHit hitInfo, 1000F, groundLayer, QueryTriggerInteraction.Ignore))
+            {
+                Vector3 direction = (hitInfo.point - linkedCharactor.transform.position).normalized;
+                float yAxisAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+                linkedCharactor.Dash(yAxisAngle);
+            }
 
         }
 

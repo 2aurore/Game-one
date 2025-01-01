@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,6 +32,22 @@ namespace ONE
 
         private void Update()
         {
+            RotateToNextPoint();
+            UpdateAnimationParamter();
+
+            if (isDashing)
+            {
+                if (Time.time - dashStartTime < dashDuration)
+                {
+                    transform.position += transform.forward * dashSpeed * Time.deltaTime;
+                }
+                else
+                {
+                    isDashing = false;
+                    animator.SetBool("IsDashing", false);
+                }
+            }
+
             smoothHorizontal = Mathf.Lerp(smoothHorizontal, inputDirection.x, Time.deltaTime * 10f);
             smoothVertical = Mathf.Lerp(smoothVertical, inputDirection.z, Time.deltaTime * 10f);
 
@@ -38,13 +55,13 @@ namespace ONE
             animator.SetFloat("Running Blend", IsRun ? 1.0f : 0.0f);
             animator.SetFloat("Horizontal", smoothHorizontal);
             animator.SetFloat("Vertical", smoothVertical);
+            animator.SetFloat("Magnitude", navAgent.desiredVelocity.magnitude);
 
-            RotateToNextPoint();
         }
 
-        public void Move(Vector2 input, float yAxisAngle)
+        private void UpdateAnimationParamter()
         {
-
+            inputDirection.z = navAgent.desiredVelocity.magnitude > 0f ? 1f : 0f;
         }
 
         public void RotateToNextPoint()
@@ -60,12 +77,15 @@ namespace ONE
             {
                 Vector3 direction = (navAgent.path.corners[1] - transform.position).normalized;
                 direction.y = 0;
-                transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 10f);
             }
         }
 
         public void SetDestination(Vector3 destination)
         {
+            if (isDashing)
+                return;
+
             navAgent.SetDestination(destination);
         }
 
@@ -81,6 +101,28 @@ namespace ONE
                 }
 
             }
+
+        }
+
+        public float dashDuration = 1.5f;
+        public float dashSpeed = 2f;
+        private bool isDashing = false;
+        private float dashStartTime = 0f;
+        public void Dash(float yAxisAngle)
+        {
+            if (isDashing)
+                return;
+
+            isDashing = true;
+            dashStartTime = Time.time;
+            animator.SetBool("IsDashing", true);
+            animator.SetTrigger("Dash Trigger");
+
+            // navAgent.SetDestination(transform.position);
+            navAgent.ResetPath();
+
+            transform.rotation = Quaternion.Euler(0f, yAxisAngle, 0f);
+
 
         }
     }
