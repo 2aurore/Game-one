@@ -132,6 +132,7 @@ namespace ONE
                 return;
 
             isAttacking = true;
+            navAgent.ResetPath();
             animator.SetBool("IsAttacking", true);
             animator.SetTrigger("Attack Trigger");
         }
