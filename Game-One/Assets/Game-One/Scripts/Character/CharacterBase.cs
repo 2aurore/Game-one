@@ -18,10 +18,10 @@ namespace ONE
         private Animator animator;
         private NavMeshAgent navAgent;
 
-        private Vector2 movementInput;
+        // private Vector2 movementInput;
         private Vector3 inputDirection;
-        private float smoothHorizontal;
-        private float smoothVertical;
+        // private float smoothHorizontal;
+        // private float smoothVertical;
 
         private void Awake()
         {
@@ -48,13 +48,13 @@ namespace ONE
                 }
             }
 
-            smoothHorizontal = Mathf.Lerp(smoothHorizontal, inputDirection.x, Time.deltaTime * 10f);
-            smoothVertical = Mathf.Lerp(smoothVertical, inputDirection.z, Time.deltaTime * 10f);
+            // smoothHorizontal = Mathf.Lerp(smoothHorizontal, inputDirection.x, Time.deltaTime * 10f);
+            // smoothVertical = Mathf.Lerp(smoothVertical, inputDirection.z, Time.deltaTime * 10f);
 
             animator.SetFloat("Equip Blend", IsEquip ? 1.0f : 0.0f);
             animator.SetFloat("Running Blend", IsRun ? 1.0f : 0.0f);
-            animator.SetFloat("Horizontal", smoothHorizontal);
-            animator.SetFloat("Vertical", smoothVertical);
+            // animator.SetFloat("Horizontal", smoothHorizontal);
+            // animator.SetFloat("Vertical", smoothVertical);
             animator.SetFloat("Magnitude", navAgent.desiredVelocity.magnitude);
 
         }
