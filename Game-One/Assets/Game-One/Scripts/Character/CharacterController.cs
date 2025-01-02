@@ -18,6 +18,7 @@ namespace ONE
 
         private void Start()
         {
+            InputSystem.Singleton.OnLeftMouseButtonDown += LeftMouseButtonEvent;
             InputSystem.Singleton.OnRightMouseButtonDown += RightMouseButtonEvent;
             InputSystem.Singleton.OnSpaceInput += SpaceInputEvent;
         }
@@ -27,10 +28,12 @@ namespace ONE
         {
             if (InputSystem.Singleton)
             {
+                InputSystem.Singleton.OnLeftMouseButtonDown -= LeftMouseButtonEvent;
                 InputSystem.Singleton.OnRightMouseButtonDown -= RightMouseButtonEvent;
                 InputSystem.Singleton.OnSpaceInput -= SpaceInputEvent;
             }
         }
+
 
         private void Update()
         {
@@ -47,6 +50,12 @@ namespace ONE
                 linkedCharactor.Dash(yAxisAngle);
             }
 
+        }
+
+        private void LeftMouseButtonEvent()
+        {
+            // TODO : Mouse 좌클릭 이벤트 처리
+            linkedCharactor.NormalAttack();
         }
 
         private void RightMouseButtonEvent()

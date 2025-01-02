@@ -7,6 +7,7 @@ namespace ONE
     public class InputSystem : SingletonBase<InputSystem>
     {
 
+        public System.Action OnLeftMouseButtonDown;
         public System.Action OnRightMouseButtonDown;
 
         public System.Action OnEscapeInput;
@@ -16,6 +17,10 @@ namespace ONE
 
         private void Update()
         {
+            if (Input.GetMouseButtonDown(0))
+            {
+                OnLeftMouseButtonDown?.Invoke();
+            }
             if (Input.GetMouseButtonDown(1))
             {
                 OnRightMouseButtonDown?.Invoke();

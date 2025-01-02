@@ -83,7 +83,7 @@ namespace ONE
 
         public void SetDestination(Vector3 destination)
         {
-            if (isDashing)
+            if (isDashing || isAttacking)
                 return;
 
             navAgent.SetDestination(destination);
@@ -122,8 +122,25 @@ namespace ONE
             navAgent.ResetPath();
 
             transform.rotation = Quaternion.Euler(0f, yAxisAngle, 0f);
+        }
 
+        private bool isAttacking = false;
 
+        public void NormalAttack()
+        {
+            if (isAttacking)
+                return;
+
+            isAttacking = true;
+            animator.SetBool("IsAttacking", true);
+            animator.SetTrigger("Attack Trigger");
+        }
+
+        // attack Animation 종료 이벤트트
+        public void AttackEnd()
+        {
+            isAttacking = false;
+            animator.SetBool("IsAttacking", false);
         }
     }
 }
