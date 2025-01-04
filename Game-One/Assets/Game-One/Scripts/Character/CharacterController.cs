@@ -55,7 +55,14 @@ namespace ONE
         private void LeftMouseButtonEvent()
         {
             // TODO : Mouse 좌클릭 이벤트 처리
-            linkedCharactor.NormalAttack();
+            // 마우스 포인터 방향으로 공격액션 수행하도록 적용
+            Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(mouseRay, out RaycastHit hitInfo, 1000F, groundLayer, QueryTriggerInteraction.Ignore))
+            {
+                Vector3 direction = (hitInfo.point - linkedCharactor.transform.position).normalized;
+                float yAxisAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+                linkedCharactor.NormalAttack(yAxisAngle);
+            }
         }
 
         private void RightMouseButtonEvent()

@@ -23,11 +23,25 @@ namespace ONE
         // private float smoothHorizontal;
         // private float smoothVertical;
 
+        public float currentHP;
+        public float maxHP;
+        public float currentSP;
+        public float maxSP;
+
         private void Awake()
         {
             animator = GetComponent<Animator>();
             navAgent = GetComponent<NavMeshAgent>();
             navAgent.updateRotation = false;
+        }
+
+        private void Start()
+        {
+            currentHP = maxHP;
+            currentSP = maxSP;
+
+            IngameUI.Instance.SetHP(currentHP, maxHP);
+            IngameUI.Instance.SetSP(currentSP, maxSP);
         }
 
         private void Update()
@@ -66,12 +80,12 @@ namespace ONE
 
         public void RotateToNextPoint()
         {
-            Debug.Log("Nav Agent Path Data");
-            for (int i = 0; i < navAgent.path.corners.Length; i++)
-            {
-                Debug.Log($"Path Corners [{i}] : {navAgent.path.corners[i]}");
-            }
-            Debug.Log("Nav Agent Path Data End");
+            // Debug.Log("Nav Agent Path Data");
+            // for (int i = 0; i < navAgent.path.corners.Length; i++)
+            // {
+            //     Debug.Log($"Path Corners [{i}] : {navAgent.path.corners[i]}");
+            // }
+            // Debug.Log("Nav Agent Path Data End");
 
             if (navAgent.path.corners.Length > 1)
             {
@@ -126,15 +140,18 @@ namespace ONE
 
         private bool isAttacking = false;
 
-        public void NormalAttack()
+        public void NormalAttack(float yAxisAngle)
         {
             if (isAttacking)
                 return;
 
             isAttacking = true;
-            navAgent.ResetPath();
+
             animator.SetBool("IsAttacking", true);
             animator.SetTrigger("Attack Trigger");
+
+            navAgent.ResetPath();
+            transform.rotation = Quaternion.Euler(0f, yAxisAngle, 0f);
         }
 
         // attack Animation 종료 이벤트트

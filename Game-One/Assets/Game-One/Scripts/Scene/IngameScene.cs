@@ -19,7 +19,7 @@ namespace ONE
                 yield return null;
             }
 
-            // UIManager.Show<IngameUI>(UIList.IngameUI);
+            UIManager.Show<IngameUI>(UIList.IngameUI);
             // ONE.InputSystem.Singleton.OnEscapeInput += OnEscapeExecute;
         }
         public override IEnumerator OnEnd()
@@ -27,7 +27,7 @@ namespace ONE
             yield return null;
 
             // ONE.InputSystem.Singleton.OnEscapeInput -= OnEscapeExecute;
-            // UIManager.Hide<IngameUI>(UIList.IngameUI);
+            UIManager.Hide<IngameUI>(UIList.IngameUI);
         }
 
         void OnEscapeExecute()
