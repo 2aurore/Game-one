@@ -36,18 +36,18 @@ namespace ONE
             }
         }
 
-        public float moveSpeed = 3.0f;
 
         public bool IsEquip { get; private set; }
         public bool IsRun { get; private set; }
 
         private Animator animator;
         private NavMeshAgent navAgent;
-
-
         private Vector3 inputDirection;
 
 
+        public CharacterStat defaultStat;
+
+        public float moveSpeed = 3.0f;
         public float currentHP;
         public float maxHP;
         public float currentSP;
@@ -64,8 +64,8 @@ namespace ONE
 
         private void Start()
         {
-            currentHP = maxHP;
-            currentSP = maxSP;
+            currentHP = maxHP = defaultStat.MaxHP;
+            currentSP = maxSP = defaultStat.MaxSP;
 
             IngameUI.Instance.SetHP(currentHP, maxHP);
             IngameUI.Instance.SetSP(currentSP, maxSP);
@@ -132,7 +132,6 @@ namespace ONE
             {
                 transform.position = Vector3.Lerp(animator.rootPosition, navAgent.nextPosition, smooth);
             }
-
         }
 
         private void UpdateAnimationParamter()
