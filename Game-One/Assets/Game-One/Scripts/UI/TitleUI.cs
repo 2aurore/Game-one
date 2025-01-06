@@ -8,12 +8,12 @@ namespace ONE
     {
         public void OnClickStartButton()
         {
-            Main.Instance?.ChangeScene(SceneType.Ingame);
+            Main.Singleton?.ChangeScene(SceneType.Ingame);
         }
 
         public void OnClickExitButton()
         {
-            Main.Instance?.SystemQuit();
+            Main.Singleton?.SystemQuit();
         }
     }
 }
