@@ -15,22 +15,23 @@ namespace ONE
 
     public class Main : SingletonBase<Main>
     {
-        private bool isIniaialized = false;
+        private bool isInitialized = false;
 
         public void Initialize()
         {
-            if (isIniaialized)
+            if (isInitialized)
                 return;
+
             // 게임에 필요한 필수 시스템 초기화
             UIManager.Singleton.Initalize();
 
-            isIniaialized = true;
+
+            isInitialized = true;
         }
 
         private void Start()
         {
             Initialize();
-
 #if UNITY_EDITOR
             Scene activeScene = UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene();
             if (activeScene.name.Equals("Main"))

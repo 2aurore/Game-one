@@ -5,19 +5,19 @@ using UnityEngine.SceneManagement;
 
 namespace ONE
 {
-    /// <summary> Main을 타고 실행한 것처러므 씬이 동작되도록 도와주는 도우미 클래스 </summary>
+    /// <summary> Main을 타고 실행한 것 처럼, 씬이 동작되도록 도와주는 도우미 클래스 </summary>
     public class BootStrapper
     {
-
         private const string BootStrapperMenuPath = "Game One/BootStrapper/Activate Ingame System";
+
         private static bool IsActivateBootStrapper
         {
             get => UnityEditor.EditorPrefs.GetBool(BootStrapperMenuPath, false);
-            set
+            set 
             {
                 UnityEditor.EditorPrefs.SetBool(BootStrapperMenuPath, value);
                 UnityEditor.Menu.SetChecked(BootStrapperMenuPath, value);
-            }
+            } 
         }
 
         [UnityEditor.MenuItem(BootStrapperMenuPath, false)]
@@ -26,7 +26,6 @@ namespace ONE
             IsActivateBootStrapper = !IsActivateBootStrapper;
             UnityEditor.Menu.SetChecked(BootStrapperMenuPath, IsActivateBootStrapper);
         }
-
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void SystemBoot()

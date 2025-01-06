@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.UI.GridLayoutGroup;
 
 namespace ONE
 {
@@ -29,10 +30,32 @@ namespace ONE
                     Gizmos.DrawSphere(navAgent.path.corners[i], 0.5f);
                 }
 
-                // navAgent.steeringTarget => corners[1]
-                Gizmos.color = new Color(1f, 1f, 0f, 0.7f);
-                Gizmos.DrawCube(navAgent.steeringTarget, Vector3.one * 0.7f);
+        void OnDrawGizmos()
+        {
+            if (navAgent && navAgent.path.corners.Length > 0)
+            {
+                for (int i = 0; i < navAgent.path.corners.Length; i++)
+                {
+                    if (i == 0) // 시작점
+                    {
+                        Gizmos.color = new Color(1f, 0f, 0f, 0.7f); // 빨간색 - 투명도 0.7f       
+                        Gizmos.DrawSphere(navAgent.path.corners[i], 0.5f);
+                    }
+                    else if (i == navAgent.path.corners.Length - 1) // 도착점
+                    {
+                        Gizmos.color = new Color(0f, 1f, 0f, 0.7f); // 초록색 - 투명도 0.7f
+                        Gizmos.DrawSphere(navAgent.path.corners[i], 0.5f);
+                    }
+                    else // 중간 지점들
+                    {
+                        Gizmos.color = new Color(0f, 0f, 1f, 0.7f); // 파란색 - 투명도 0.7f
+                        Gizmos.DrawSphere(navAgent.path.corners[i], 0.5f);
+                    }
+                }
 
+                // navAgent.steeringTarget => corners[1];
+                Gizmos.color = new Color(1f, 1f, 0f, 0.7f); // 노란색 - 투명도 0.7f
+                Gizmos.DrawCube(navAgent.steeringTarget, Vector3.one * 0.7f);
             }
         }
 
@@ -57,7 +80,6 @@ namespace ONE
         {
             animator = GetComponent<Animator>();
             navAgent = GetComponent<NavMeshAgent>();
-
             navAgent.updatePosition = false;
             navAgent.updateRotation = false;
         }
@@ -74,6 +96,7 @@ namespace ONE
         private void Update()
         {
             UpdateAnimationParamter();
+            SynchronizeAnimatorAndAgent();
 
             SynchronizeAnimatorAndAgent();
 
@@ -92,7 +115,6 @@ namespace ONE
 
             animator.SetFloat("Equip Blend", IsEquip ? 1.0f : 0.0f);
             animator.SetFloat("Running Blend", IsRun ? 1.0f : 0.0f);
-
         }
 
         private Vector2 velocity;
@@ -115,15 +137,14 @@ namespace ONE
             {
                 velocity = Vector2.Lerp(Vector2.zero, velocity, navAgent.remainingDistance / navAgent.stoppingDistance);
             }
-
             bool shouldMove = velocity.magnitude > 0.5f && navAgent.remainingDistance > navAgent.stoppingDistance;
-
             if (shouldMove)
             {
                 Vector3 direction = (navAgent.path.corners[1] - transform.position).normalized;
                 direction.y = 0;
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 10f);
             }
+
             animator.SetBool("IsMoving", shouldMove);
             animator.SetFloat("Magnitude", velocity.magnitude > 0f ? velocity.magnitude : 0f);
 
@@ -132,7 +153,6 @@ namespace ONE
             {
                 transform.position = Vector3.Lerp(animator.rootPosition, navAgent.nextPosition, smooth);
             }
-
         }
 
         private void UpdateAnimationParamter()
