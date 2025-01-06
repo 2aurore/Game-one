@@ -98,7 +98,7 @@ namespace ONE
                 if (result)
                 {
                     container[uiName] = Instantiate(result, container == panels ? panelRoot : popupRoot);
-                    container[uiName].gameObject.SetActive(true);
+                    container[uiName].gameObject.SetActive(false);
                 }
             }
 
