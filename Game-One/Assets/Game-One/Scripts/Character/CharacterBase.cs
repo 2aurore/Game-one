@@ -29,48 +29,20 @@ namespace ONE
                     }
                     Gizmos.DrawSphere(navAgent.path.corners[i], 0.5f);
                 }
-
-        void OnDrawGizmos()
-        {
-            if (navAgent && navAgent.path.corners.Length > 0)
-            {
-                for (int i = 0; i < navAgent.path.corners.Length; i++)
-                {
-                    if (i == 0) // 시작점
-                    {
-                        Gizmos.color = new Color(1f, 0f, 0f, 0.7f); // 빨간색 - 투명도 0.7f       
-                        Gizmos.DrawSphere(navAgent.path.corners[i], 0.5f);
-                    }
-                    else if (i == navAgent.path.corners.Length - 1) // 도착점
-                    {
-                        Gizmos.color = new Color(0f, 1f, 0f, 0.7f); // 초록색 - 투명도 0.7f
-                        Gizmos.DrawSphere(navAgent.path.corners[i], 0.5f);
-                    }
-                    else // 중간 지점들
-                    {
-                        Gizmos.color = new Color(0f, 0f, 1f, 0.7f); // 파란색 - 투명도 0.7f
-                        Gizmos.DrawSphere(navAgent.path.corners[i], 0.5f);
-                    }
-                }
-
-                // navAgent.steeringTarget => corners[1];
-                Gizmos.color = new Color(1f, 1f, 0f, 0.7f); // 노란색 - 투명도 0.7f
-                Gizmos.DrawCube(navAgent.steeringTarget, Vector3.one * 0.7f);
             }
         }
 
-        public float moveSpeed = 3.0f;
 
         public bool IsEquip { get; private set; }
         public bool IsRun { get; private set; }
 
         private Animator animator;
         private NavMeshAgent navAgent;
-
-
         private Vector3 inputDirection;
 
+        public CharacterStat defaultStat;
 
+        public float moveSpeed = 3.0f;
         public float currentHP;
         public float maxHP;
         public float currentSP;
@@ -86,8 +58,8 @@ namespace ONE
 
         private void Start()
         {
-            currentHP = maxHP;
-            currentSP = maxSP;
+            currentHP = maxHP = defaultStat.MaxHP;
+            currentSP = maxSP = defaultStat.MaxSP;
 
             IngameUI.Instance.SetHP(currentHP, maxHP);
             IngameUI.Instance.SetSP(currentSP, maxSP);
@@ -95,9 +67,9 @@ namespace ONE
 
         private void Update()
         {
-            UpdateAnimationParamter();
-            SynchronizeAnimatorAndAgent();
+            navAgent.speed = defaultStat.MoveSpeed;
 
+            UpdateAnimationParamter();
             SynchronizeAnimatorAndAgent();
 
             if (isDashing)

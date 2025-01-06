@@ -2923,16 +2923,20 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2240899603191250200, guid: 5f4962f67d6db14408f1f94a87a1bfee, type: 3}
       propertyPath: maxHP
-      value: 1000
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2240899603191250200, guid: 5f4962f67d6db14408f1f94a87a1bfee, type: 3}
       propertyPath: maxSP
-      value: 1000
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2240899603191250200, guid: 5f4962f67d6db14408f1f94a87a1bfee, type: 3}
       propertyPath: dashSpeed
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 2240899603191250200, guid: 5f4962f67d6db14408f1f94a87a1bfee, type: 3}
+      propertyPath: defaultStat
+      value: 
+      objectReference: {fileID: 11400000, guid: ed9850b17779eed45af7b4d271416ede, type: 2}
     - target: {fileID: 2240899603191250200, guid: 5f4962f67d6db14408f1f94a87a1bfee, type: 3}
       propertyPath: dashDuration
       value: 0.5
@@ -3045,3 +3049,4 @@ SceneRoots:
   - {fileID: 1743187319}
   - {fileID: 1713057801}
   - {fileID: 511914195}
+  - {fileID: 1403162855}
