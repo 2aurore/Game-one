@@ -13,29 +13,33 @@ namespace ONE
         Ingame,
     }
 
-    public class Main : MonoBehaviour
+    public class Main : SingletonBase<Main>
     {
-        public static Main Instance { get; private set; }
-
-        private void Awake()
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-
-        private IEnumerator Start()
-        {
-            Initialize();
-
-            yield return null;
-
-            ChangeScene(SceneType.Title);
-        }
+        private bool isIniaialized = false;
 
         public void Initialize()
         {
+            if (isIniaialized)
+                return;
             // 게임에 필요한 필수 시스템 초기화
             UIManager.Singleton.Initalize();
+
+            isIniaialized = true;
+        }
+
+        private void Start()
+        {
+            Initialize();
+
+#if UNITY_EDITOR
+            Scene activeScene = UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene();
+            if (activeScene.name.Equals("Main"))
+            {
+                ChangeScene(SceneType.Title);
+            }
+#else
+            ChangeScene(SceneType.Title);
+#endif
         }
 
         bool isSceneChangeProgress = false;
