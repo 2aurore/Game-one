@@ -9,7 +9,7 @@ namespace ONE
     public class Skill : ScriptableObject
     {
         [field: SerializeField] public string SkillName { get; set; }
-        [field: SerializeField] public string Icon { get; set; }
+        [field: SerializeField] public Sprite Icon { get; set; }
         [field: SerializeField] public float Range { get; set; }
         [field: SerializeField] public float Cooldown { get; set; }
         [field: SerializeField] public float Damage { get; set; }
