@@ -20,6 +20,7 @@ namespace ONE
             }
 
             UIManager.Show<IngameUI>(UIList.IngameUI);
+            UIManager.Show<LogUI>(UIList.LogUI);
             // ONE.InputSystem.Singleton.OnEscapeInput += OnEscapeExecute;
         }
         public override IEnumerator OnEnd()
@@ -28,6 +29,7 @@ namespace ONE
 
             // ONE.InputSystem.Singleton.OnEscapeInput -= OnEscapeExecute;
             UIManager.Hide<IngameUI>(UIList.IngameUI);
+            UIManager.Hide<LogUI>(UIList.LogUI);
         }
 
         void OnEscapeExecute()
