@@ -183,11 +183,61 @@ namespace ONE
             transform.rotation = Quaternion.Euler(0f, yAxisAngle, 0f);
         }
 
+        float skillKey = 0f;
+        public void SkillAttack(float yAxisAngle, KeyCode keyCode)
+        {
+            if (isAttacking)
+                return;
+
+            isAttacking = true;
+
+            switch (keyCode)
+            {
+                case KeyCode.Q:
+                    skillKey = 1f;
+                    break;
+                case KeyCode.W:
+                    skillKey = 2f;
+                    break;
+                case KeyCode.E:
+                    skillKey = 3f;
+                    break;
+                case KeyCode.R:
+                    skillKey = 4f;
+                    break;
+                case KeyCode.A:
+                    skillKey = 5f;
+                    break;
+                case KeyCode.S:
+                    skillKey = 6f;
+                    break;
+                case KeyCode.D:
+                    skillKey = 7f;
+                    break;
+                case KeyCode.F:
+                    skillKey = 8f;
+                    break;
+
+            }
+            animator.SetFloat("Skill Blend", skillKey);
+            animator.SetBool("IsAttacking", true);
+            animator.SetTrigger("Attack Trigger");
+
+            navAgent.ResetPath();
+            transform.rotation = Quaternion.Euler(0f, yAxisAngle, 0f);
+        }
+
         // attack Animation 종료 이벤트트
         public void AttackEnd()
         {
             isAttacking = false;
             animator.SetBool("IsAttacking", false);
+
+            if (skillKey != 0f)
+            {
+                animator.SetFloat("Skill Blend", 0f);
+            }
+
         }
     }
 }
