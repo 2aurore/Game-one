@@ -169,6 +169,9 @@ namespace ONE
 
         private bool isAttacking = false;
 
+        /// <summary>
+        /// 기본 공격 method
+        /// </summary>
         public void NormalAttack(float yAxisAngle)
         {
             if (isAttacking)
@@ -184,6 +187,9 @@ namespace ONE
         }
 
         float skillKey = 0f;
+        /// <summary>
+        /// 스킬 공격 method
+        /// </summary>
         public void SkillAttack(float yAxisAngle, KeyCode keyCode)
         {
             if (isAttacking)
@@ -227,7 +233,9 @@ namespace ONE
             transform.rotation = Quaternion.Euler(0f, yAxisAngle, 0f);
         }
 
-        // attack Animation 종료 이벤트트
+        /// <summary>
+        /// attack Animation 종료 이벤트
+        /// </summary>
         public void AttackEnd()
         {
             isAttacking = false;
