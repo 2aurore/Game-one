@@ -28,7 +28,7 @@ namespace ONE
 
             // 대화 프리팹의 Text 컴포넌트를 설정
             TextMeshProUGUI chatText = newChat.GetComponent<TextMeshProUGUI>();
-            chatText.text = type + ":" + message;
+            chatText.text = $"[{type}] : {message}";
 
             // 스크롤을 가장 아래로 고정
             Canvas.ForceUpdateCanvases();
