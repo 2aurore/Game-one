@@ -26,6 +26,7 @@ namespace ONE
         {
             // Sphere 생성
             GameObject sphere = Instantiate(spherePrefab, transform.position, Quaternion.identity);
+            sphere.SetActive(true);
 
             // Rigidbody 추가 및 위로 힘 가하기
             Rigidbody rb = sphere.AddComponent<Rigidbody>();
