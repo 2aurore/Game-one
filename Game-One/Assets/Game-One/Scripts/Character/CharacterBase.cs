@@ -30,8 +30,8 @@ namespace ONE
                 }
 
                 // navAgent.steeringTarget => corners[1]
-                Gizmos.color = new Color(1f, 1f, 0f, 0.7f);
-                Gizmos.DrawCube(navAgent.steeringTarget, Vector3.one * 0.7f);
+                // Gizmos.color = new Color(1f, 1f, 0f, 0.7f);
+                // Gizmos.DrawCube(navAgent.steeringTarget, Vector3.one * 0.7f);
 
             }
         }
