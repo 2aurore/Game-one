@@ -9,7 +9,11 @@ namespace ONE
         public string itemName;
         public string Name => itemName;
 
+        public Vector3 InteractionPosition => interactionPoint.position;
+
         public SphereEffect sphereEffect;
+
+        [SerializeField] private Transform interactionPoint;
 
         public void Open()
         {

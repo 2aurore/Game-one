@@ -38,10 +38,10 @@ namespace ONE
         };
 
         public Dictionary<KeyCode, GameObject> skillSlots = new Dictionary<KeyCode, GameObject>(); // 슬롯 관리
-        public Dictionary<KeyCode, SkillStat> skillDatas = new Dictionary<KeyCode, SkillStat>(); // 데이터 관리
+        public Dictionary<KeyCode, SkillDataSO> skillDatas = new Dictionary<KeyCode, SkillDataSO>(); // 데이터 관리
 
         [SerializeField] private List<GameObject> slotObjects; // 슬롯 리스트
-        [SerializeField] private List<SkillStat> dataObjects; // 데이터 리스트
+        [SerializeField] private List<SkillDataSO> dataObjects; // 데이터 리스트
 
 
         private void Start()

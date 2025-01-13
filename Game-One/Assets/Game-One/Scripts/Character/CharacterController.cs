@@ -22,6 +22,13 @@ namespace ONE
             InputSystem.Singleton.OnRightMouseButtonDown += RightMouseButtonEvent;
             InputSystem.Singleton.OnSpaceInput += SpaceInputEvent;
             InputSystem.Singleton.OnKeyInput += KeyInputEvent;
+
+            if (GameDataModel.Singleton.GetSkillData("DeathFire", out var deathFireDataSO))
+            {
+                var deathFireSkill = new Skill_DeathFire();
+                deathFireSkill.Init(deathFireDataSO);
+                linkedCharactor.AddSkill(deathFireSkill);
+            }
         }
 
 

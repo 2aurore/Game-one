@@ -40,6 +40,8 @@ namespace ONE
         public bool IsEquip { get; private set; }
         public bool IsRun { get; private set; }
 
+        public bool IsProgressingAction { get; set; }
+
         private Animator animator;
         private NavMeshAgent navAgent;
         private Vector3 inputDirection;
@@ -52,6 +54,21 @@ namespace ONE
         public float maxHP;
         public float currentSP;
         public float maxSP;
+
+
+        private List<SkillBase> skills = new List<SkillBase>();
+        public void AddSkill(SkillBase skill)
+        {
+            if (skills.Exists(x => x == skill))
+                return;
+
+            skills.Add(skill);
+        }
+
+        public void RemoveSkill(SkillBase skill)
+        {
+            skills.Remove(skill);
+        }
 
         private void Awake()
         {
@@ -73,8 +90,8 @@ namespace ONE
 
         private void Update()
         {
+            UpdateSkills(Time.deltaTime);
             UpdateAnimationParamter();
-
             SynchronizeAnimatorAndAgent();
 
             if (isDashing)
@@ -93,6 +110,14 @@ namespace ONE
             animator.SetFloat("Equip Blend", IsEquip ? 1.0f : 0.0f);
             animator.SetFloat("Running Blend", IsRun ? 1.0f : 0.0f);
 
+        }
+
+        private void UpdateSkills(float deltaTime)
+        {
+            for (int i = 0; i < skills.Count; i++)
+            {
+                skills[i].UpdateSkill(deltaTime);
+            }
         }
 
         private Vector2 velocity;
@@ -186,67 +211,49 @@ namespace ONE
             transform.rotation = Quaternion.Euler(0f, yAxisAngle, 0f);
         }
 
-        float skillKey = 0f;
         /// <summary>
         /// 스킬 공격 method
         /// </summary>
         public void SkillAttack(float yAxisAngle, KeyCode keyCode)
         {
-            if (isAttacking)
-                return;
-
-            isAttacking = true;
             // TODO : 스킬이 실행된 다음 쿨다운 시간을 초단위로 감소하고 해당 값을 UI에 표시하기
 
             switch (keyCode)
             {
                 case KeyCode.Q:
-                    skillKey = 1f;
+                    if (skills[0].CurrentCoolDown <= 0)
+                    {
+                        skills[0].ExecuteSkill(this);
+                    }
                     break;
                 case KeyCode.W:
-                    skillKey = 2f;
                     break;
                 case KeyCode.E:
-                    skillKey = 3f;
                     break;
                 case KeyCode.R:
-                    skillKey = 4f;
                     break;
                 case KeyCode.A:
-                    skillKey = 5f;
                     break;
                 case KeyCode.S:
-                    skillKey = 6f;
                     break;
                 case KeyCode.D:
-                    skillKey = 7f;
                     break;
                 case KeyCode.F:
-                    skillKey = 8f;
                     break;
-
             }
-            animator.SetFloat("Skill Blend", skillKey);
-            animator.SetBool("IsAttacking", true);
-            animator.SetTrigger("Attack Trigger");
 
             navAgent.ResetPath();
             transform.rotation = Quaternion.Euler(0f, yAxisAngle, 0f);
         }
 
-        /// <summary>
-        /// attack Animation 종료 이벤트
-        /// </summary>
-        public void AttackEnd()
+        public void ExecuteSkill(string animationStateName)
         {
-            isAttacking = false;
-            animator.SetBool("IsAttacking", false);
+            animator.Play(animationStateName);
+        }
 
-            if (skillKey != 0f)
-            {
-                animator.SetFloat("Skill Blend", 0f);
-            }
-
+        public void ExecuteSkillAnimation(string skillAnimationStateName)
+        {
+            animator.Play(skillAnimationStateName);
         }
     }
 }

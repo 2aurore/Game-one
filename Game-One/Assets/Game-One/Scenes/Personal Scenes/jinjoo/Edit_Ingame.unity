@@ -777,6 +777,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: treasureBox
   sphereEffect: {fileID: 305118926}
+  interactionPoint: {fileID: 0}
 --- !u!4 &831312229
 Transform:
   m_ObjectHideFlags: 0
@@ -1180,7 +1181,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1091854449}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0708707, y: -0.1057138, z: 0.086711094, w: 0.9880704}
+  m_LocalRotation: {x: 0.07086194, y: -0.10639794, z: 0.08727225, w: 0.9879482}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1259,7 +1260,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1362229490}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.061609767, y: -0.107460745, z: 0.08647436, w: 0.9885235}
+  m_LocalRotation: {x: 0.061600555, y: -0.108284056, z: 0.08713691, w: 0.988376}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1476,7 +1477,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1500456361}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.31948572, y: -0.46948937, z: 0.18713012, w: 0.8015554}
+  m_LocalRotation: {x: 0.31931907, y: -0.47020254, z: 0.18741441, w: 0.8011372}
   m_LocalPosition: {x: 8.660254, y: 10, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2821,6 +2822,10 @@ PrefabInstance:
       propertyPath: groundLayer.m_Bits
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3778509960669498693, guid: 5f4962f67d6db14408f1f94a87a1bfee, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 90ab11f0bc18d624399fbeaa62c74186, type: 2}
     - target: {fileID: 3778509960669498693, guid: 5f4962f67d6db14408f1f94a87a1bfee, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
