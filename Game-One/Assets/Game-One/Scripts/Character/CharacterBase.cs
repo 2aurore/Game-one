@@ -196,6 +196,7 @@ namespace ONE
                 return;
 
             isAttacking = true;
+            // TODO : 스킬이 실행된 다음 쿨다운 시간을 초단위로 감소하고 해당 값을 UI에 표시하기
 
             switch (keyCode)
             {

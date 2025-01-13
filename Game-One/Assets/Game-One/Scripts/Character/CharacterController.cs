@@ -82,6 +82,9 @@ namespace ONE
         /// </summary>
         private void KeyboardSkillKeyEvent(KeyCode keyCode)
         {
+            // TODO: Keycode 값에 해당하는 스킬의 쿨다운 값을 확인해서 스킬을 사용할 수 있는 상태인지 확인하기
+
+
             // 마우스 포인터 방향으로 공격액션 수행하도록 적용
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(mouseRay, out RaycastHit hitInfo, 1000F, groundLayer, QueryTriggerInteraction.Ignore))
