@@ -94,37 +94,37 @@ namespace ONE
 
         private void SynchronizeAnimatorAndAgent()
         {
-            Vector3 worldDeltaPosition = navAgent.nextPosition - transform.position;
-            worldDeltaPosition.y = 0f;
+            //Vector3 worldDeltaPosition = navAgent.nextPosition - transform.position;
+            //worldDeltaPosition.y = 0f;
 
-            float dx = Vector3.Dot(transform.right, worldDeltaPosition);
-            float dy = Vector3.Dot(transform.forward, worldDeltaPosition);
-            Vector2 deltaPosition = new Vector2(dx, dy);
+            //float dx = Vector3.Dot(transform.right, worldDeltaPosition);
+            //float dy = Vector3.Dot(transform.forward, worldDeltaPosition);
+            //Vector2 deltaPosition = new Vector2(dx, dy);
 
-            float smooth = Mathf.Min(1.0f, Time.deltaTime / 0.15f);
-            smoothDeltaPosition = Vector2.Lerp(smoothDeltaPosition, deltaPosition, smooth);
+            //float smooth = Mathf.Min(1.0f, Time.deltaTime / 0.15f);
+            //smoothDeltaPosition = Vector2.Lerp(smoothDeltaPosition, deltaPosition, smooth);
 
-            velocity = smoothDeltaPosition / Time.deltaTime;
-            if (navAgent.remainingDistance <= navAgent.stoppingDistance)
-            {
-                velocity = Vector2.Lerp(Vector2.zero, velocity, navAgent.remainingDistance / navAgent.stoppingDistance);
-            }
-            bool shouldMove = velocity.magnitude > 0.5f && navAgent.remainingDistance > navAgent.stoppingDistance;
-            if (shouldMove)
-            {
-                Vector3 direction = (navAgent.path.corners[1] - transform.position).normalized;
-                direction.y = 0;
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 10f);
-            }
+            //velocity = smoothDeltaPosition / Time.deltaTime;
+            //if (navAgent.remainingDistance <= navAgent.stoppingDistance)
+            //{
+            //    velocity = Vector2.Lerp(Vector2.zero, velocity, navAgent.remainingDistance / navAgent.stoppingDistance);
+            //}
+            //bool shouldMove = velocity.magnitude > 0.5f && navAgent.remainingDistance > navAgent.stoppingDistance;
+            //if (shouldMove)
+            //{
+            //    Vector3 direction = (navAgent.path.corners[1] - transform.position).normalized;
+            //    direction.y = 0;
+            //    transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 10f);
+            //}
 
-            animator.SetBool("IsMoving", shouldMove);
-            animator.SetFloat("Magnitude", velocity.magnitude > 0f ? velocity.magnitude : 0f);
+            //animator.SetBool("IsMoving", shouldMove);
+            //animator.SetFloat("Magnitude", velocity.magnitude > 0f ? velocity.magnitude : 0f);
 
-            float deltaMagnitude = worldDeltaPosition.magnitude;
-            if (deltaMagnitude > navAgent.radius * 0.5f)
-            {
-                transform.position = Vector3.Lerp(animator.rootPosition, navAgent.nextPosition, smooth);
-            }
+            //float deltaMagnitude = worldDeltaPosition.magnitude;
+            //if (deltaMagnitude > navAgent.radius * 0.5f)
+            //{
+            //    transform.position = Vector3.Lerp(animator.rootPosition, navAgent.nextPosition, smooth);
+            //}
         }
 
         private void UpdateAnimationParamter()
