@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace ONE
 {
     [CreateAssetMenu(fileName = "New Skill Stat", menuName = "Game One/Skill/Create New Skill Stat")]
-    public class Skill : ScriptableObject
+    public class SkillStat : ScriptableObject
     {
         [field: SerializeField] public string SkillName { get; set; }
         [field: SerializeField] public Sprite Icon { get; set; }
