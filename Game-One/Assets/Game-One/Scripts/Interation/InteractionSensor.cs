@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,13 @@ namespace ONE
 
         public List<GameObject> detectedObjects = new List<GameObject>();
         private List<IBox> detectedPickupItems = new List<IBox>();
+
+        private CharacterBase linkedCharactor;
+
+        private void Awake()
+        {
+            linkedCharactor = GetComponent<CharacterBase>();
+        }
 
         private void Update()
         {
@@ -33,9 +41,19 @@ namespace ONE
             {
                 for (int i = 0; i < detectedPickupItems.Count; i++)
                 {
-                    detectedPickupItems[i].Open();
+                    linkedCharactor.Looting();
+
+                    StartCoroutine(Looting(i));
                 }
             }
         }
+
+        public IEnumerator Looting(int i)
+        {
+            yield return new WaitForSecondsRealtime(2.5f);
+
+            detectedPickupItems[i].Open();
+        }
+
     }
 }

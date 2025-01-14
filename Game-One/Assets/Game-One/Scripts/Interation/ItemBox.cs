@@ -21,9 +21,17 @@ namespace ONE
         {
             LogUI.Instance.AddLogMessage("info", "Open Box!");
 
-            sphereEffect.StartCreateSpheres();
 
             animator.SetTrigger("Open Trigger");
+
+            StartCoroutine(StartOpenEffect());
+        }
+
+        public IEnumerator StartOpenEffect()
+        {
+            yield return new WaitForSecondsRealtime(1.5f);
+
+            sphereEffect.StartCreateSpheres();
             Invoke(nameof(EndOpenEffect), 3f);
         }
 

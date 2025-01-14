@@ -192,7 +192,15 @@ namespace ONE
             transform.rotation = Quaternion.Euler(0f, yAxisAngle, 0f);
         }
 
+        public void Looting()
+        {
+            if (isDashing || IsProgressingAction)
+                return;
 
+
+            animator.SetTrigger("Loot Trigger");
+            navAgent.ResetPath();
+        }
 
         /// <summary>
         /// 기본 공격 method
