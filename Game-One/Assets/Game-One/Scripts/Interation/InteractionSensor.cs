@@ -22,7 +22,6 @@ namespace ONE
             for (int i = 0; i < overlapped.Length; i++)
             {
                 IBox pickupInterface = overlapped[i].transform.root.GetComponent<IBox>();
-                Debug.Log("pickupInterface:: " + pickupInterface);
                 if (pickupInterface != null)
                 {
                     detectedObjects.Add(overlapped[i].transform.root.gameObject);

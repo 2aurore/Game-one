@@ -42,6 +42,7 @@ namespace ONE
         public bool IsProgressingAction { get; set; }
 
         private Animator animator;
+        private Weapon_Gun weapon_Gun;
         private NavMeshAgent navAgent;
         private Vector3 inputDirection;
 
@@ -69,6 +70,7 @@ namespace ONE
         {
             animator = GetComponent<Animator>();
             navAgent = GetComponent<NavMeshAgent>();
+            weapon_Gun = GetComponent<Weapon_Gun>();
 
             navAgent.updatePosition = false;
             navAgent.updateRotation = false;
@@ -191,6 +193,7 @@ namespace ONE
         }
 
 
+
         /// <summary>
         /// 기본 공격 method
         /// </summary>
@@ -202,6 +205,8 @@ namespace ONE
             animator.Play("Defalut Attack");
             navAgent.ResetPath();
             transform.rotation = Quaternion.Euler(0f, yAxisAngle, 0f);
+
+            weapon_Gun.Fire();
         }
 
         /// <summary>
