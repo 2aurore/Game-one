@@ -10,6 +10,12 @@ namespace ONE
         public string Name => itemName;
 
         public SphereEffect sphereEffect;
+        private Animator animator;
+
+        private void Awake()
+        {
+            animator = GetComponent<Animator>();
+        }
 
         public void Open()
         {
@@ -17,6 +23,7 @@ namespace ONE
 
             sphereEffect.StartCreateSpheres();
 
+            animator.SetTrigger("Open Trigger");
             Invoke(nameof(EndOpenEffect), 3f);
         }
 
