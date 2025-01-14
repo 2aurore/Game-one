@@ -34,12 +34,48 @@ namespace ONE
                 deathFireSkill.Init(deathFireDataSO);
                 linkedCharactor.AddSkill(KeyCode.Q, deathFireSkill);
             }
+            if (GameDataModel.Singleton.GetSkillData("QuickStep", out var quickStepDataSO))
+            {
+                var quickStepSkill = new Skill_QuickStep();
+                quickStepSkill.Init(quickStepDataSO);
+                linkedCharactor.AddSkill(KeyCode.W, quickStepSkill);
+            }
+            if (GameDataModel.Singleton.GetSkillData("PlasmaBullet", out var plasmaBulletDataSO))
+            {
+                var plasmaBulletSkill = new Skill_PlasmaBullet();
+                plasmaBulletSkill.Init(plasmaBulletDataSO);
+                linkedCharactor.AddSkill(KeyCode.E, plasmaBulletSkill);
+            }
+            if (GameDataModel.Singleton.GetSkillData("PieceKeeper", out var pieceKeeperDataSO))
+            {
+                var pieceKeeperSkill = new Skill_PieceKeeper();
+                pieceKeeperSkill.Init(pieceKeeperDataSO);
+                linkedCharactor.AddSkill(KeyCode.R, pieceKeeperSkill);
+            }
 
             if (GameDataModel.Singleton.GetSkillData("PerfectShot", out var perfectShotDataSO))
             {
                 var perfectShotSkill = new Skill_PerfectShot();
                 perfectShotSkill.Init(perfectShotDataSO);
                 linkedCharactor.AddSkill(KeyCode.A, perfectShotSkill);
+            }
+            if (GameDataModel.Singleton.GetSkillData("TargetDown", out var targetDownDataSO))
+            {
+                var targetDownSkill = new Skill_PerfectShot();
+                targetDownSkill.Init(targetDownDataSO);
+                linkedCharactor.AddSkill(KeyCode.S, targetDownSkill);
+            }
+            if (GameDataModel.Singleton.GetSkillData("Deadshot", out var deadShotDataSO))
+            {
+                var deadShotSkill = new Skill_PerfectShot();
+                deadShotSkill.Init(deadShotDataSO);
+                linkedCharactor.AddSkill(KeyCode.D, deadShotSkill);
+            }
+            if (GameDataModel.Singleton.GetSkillData("PhantomStrike", out var phantomStrikeDataSO))
+            {
+                var phantomStrikeSkill = new Skill_PerfectShot();
+                phantomStrikeSkill.Init(phantomStrikeDataSO);
+                linkedCharactor.AddSkill(KeyCode.F, phantomStrikeSkill);
             }
 
         }
