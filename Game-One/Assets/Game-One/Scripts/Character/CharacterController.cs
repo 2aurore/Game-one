@@ -7,13 +7,13 @@ namespace ONE
 {
     public class CharactorController : MonoBehaviour
     {
-        private CharactorBase linkedCharactor;
+        private CharacterBase linkedCharactor;
 
         public LayerMask groundLayer;
 
         private void Awake()
         {
-            linkedCharactor = GetComponent<CharactorBase>();
+            linkedCharactor = GetComponent<CharacterBase>();
         }
 
         private void Start()
@@ -22,6 +22,13 @@ namespace ONE
             InputSystem.Singleton.OnRightMouseButtonDown += RightMouseButtonEvent;
             InputSystem.Singleton.OnSpaceInput += SpaceInputEvent;
             InputSystem.Singleton.OnKeyInput += KeyInputEvent;
+
+            if (GameDataModel.Singleton.GetSkillData("DeathFire", out var deathFireDataSO))
+            {
+                var deathFireSkill = new Skill_DeathFire();
+                deathFireSkill.Init(deathFireDataSO);
+                linkedCharactor.AddSkill(deathFireSkill);
+            }
         }
 
 
