@@ -8,33 +8,33 @@ namespace ONE
 {
     public class CharacterBase : MonoBehaviour
     {
-        void OnDrawGizmos()
-        {
-            if (navAgent && navAgent.path.corners.Length > 0)
-            {
-                for (int i = 0; i < navAgent.path.corners.Length; i++)
-                {
-                    if (i == 0)
-                    {    // 시작점
-                        Gizmos.color = new Color(1f, 0f, 0f, 0.7f); // 빨강강
-                    }
-                    else if (i == navAgent.path.corners.Length - 1)
-                    {   // 도착점
-                        Gizmos.color = new Color(0f, 1f, 0f, 0.7f); // 녹색색
-                    }
-                    else
-                    {   // 중간 지점들
-                        Gizmos.color = new Color(0f, 0f, 1f, 0.7f); // 파랑
-                    }
-                    Gizmos.DrawSphere(navAgent.path.corners[i], 0.5f);
-                }
+        // void OnDrawGizmos()
+        // {
+        //     if (navAgent && navAgent.path.corners.Length > 0)
+        //     {
+        //         for (int i = 0; i < navAgent.path.corners.Length; i++)
+        //         {
+        //             if (i == 0)
+        //             {    // 시작점
+        //                 Gizmos.color = new Color(1f, 0f, 0f, 0.7f); // 빨강강
+        //             }
+        //             else if (i == navAgent.path.corners.Length - 1)
+        //             {   // 도착점
+        //                 Gizmos.color = new Color(0f, 1f, 0f, 0.7f); // 녹색색
+        //             }
+        //             else
+        //             {   // 중간 지점들
+        //                 Gizmos.color = new Color(0f, 0f, 1f, 0.7f); // 파랑
+        //             }
+        //             Gizmos.DrawSphere(navAgent.path.corners[i], 0.5f);
+        //         }
 
-                // navAgent.steeringTarget => corners[1]
-                // Gizmos.color = new Color(1f, 1f, 0f, 0.7f);
-                // Gizmos.DrawCube(navAgent.steeringTarget, Vector3.one * 0.7f);
+        //         navAgent.steeringTarget => corners[1]
+        //         Gizmos.color = new Color(1f, 1f, 0f, 0.7f);
+        //         Gizmos.DrawCube(navAgent.steeringTarget, Vector3.one * 0.7f);
 
-            }
-        }
+        //     }
+        // }
 
 
         public bool IsEquip { get; private set; }
@@ -54,17 +54,14 @@ namespace ONE
         public float currentSP;
         public float maxSP;
 
-        private List<SkillBase> skills = new List<SkillBase>();
-        public void AddSkill(SkillBase skillBase)
+        private Dictionary<KeyCode, SkillBase> skills = new Dictionary<KeyCode, SkillBase>();
+        public void AddSkill(KeyCode keyCode, SkillBase skillBase)
         {
-            if (skills.Exists(skill => skill == skillBase))
-                return;
-
-            skills.Add(skillBase);
+            skills.TryAdd(keyCode, skillBase);
         }
-        public void RemoveSkill(SkillBase skillBase)
+        public void RemoveSkill(KeyCode keyCode)
         {
-            skills.Remove(skillBase);
+            skills.Remove(keyCode);
         }
 
 
@@ -110,11 +107,14 @@ namespace ONE
 
         }
 
+        /// <summary>
+        /// skill 재사용 대기시간 update
+        /// </summary>
         private void UpdateSkills(float deltaTime)
         {
-            for (int i = 0; i < skills.Count; i++)
+            foreach (var skill in skills.Values)
             {
-                skills[i].UpdateSkill(deltaTime);
+                skill.UpdateSkill(deltaTime);
             }
         }
 
@@ -211,33 +211,18 @@ namespace ONE
         {
             // TODO : 스킬이 실행된 다음 쿨다운 시간을 초단위로 감소하고 해당 값을 UI에 표시하기
 
-            switch (keyCode)
+            skills.TryGetValue(keyCode, out SkillBase skill);
+
+            if (skill != null)
             {
-                case KeyCode.Q:
+                if (skill.CurrentCoolDown <= 0)
+                {
+                    skill.ExecuteSkill(this);
 
-                    if (skills[0].CurrentCoolDown <= 0)
-                    {
-                        skills[0].ExecuteSkill(this);
-                    }
-                    break;
-                case KeyCode.W:
-                    break;
-                case KeyCode.E:
-                    break;
-                case KeyCode.R:
-                    break;
-                case KeyCode.A:
-                    break;
-                case KeyCode.S:
-                    break;
-                case KeyCode.D:
-                    break;
-                case KeyCode.F:
-                    break;
+                    navAgent.ResetPath();
+                    transform.rotation = Quaternion.Euler(0f, yAxisAngle, 0f);
+                }
             }
-
-            navAgent.ResetPath();
-            transform.rotation = Quaternion.Euler(0f, yAxisAngle, 0f);
         }
 
         public void ExecuteSkillAnimation(string skillAnimationStateName)

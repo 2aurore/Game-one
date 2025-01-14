@@ -23,12 +23,25 @@ namespace ONE
             InputSystem.Singleton.OnSpaceInput += SpaceInputEvent;
             InputSystem.Singleton.OnKeyInput += KeyInputEvent;
 
+            InitializeSkills();
+        }
+
+        private void InitializeSkills()
+        {
             if (GameDataModel.Singleton.GetSkillData("DeathFire", out var deathFireDataSO))
             {
                 var deathFireSkill = new Skill_DeathFire();
                 deathFireSkill.Init(deathFireDataSO);
-                linkedCharactor.AddSkill(deathFireSkill);
+                linkedCharactor.AddSkill(KeyCode.Q, deathFireSkill);
             }
+
+            if (GameDataModel.Singleton.GetSkillData("PerfectShot", out var perfectShotDataSO))
+            {
+                var perfectShotSkill = new Skill_PerfectShot();
+                perfectShotSkill.Init(perfectShotDataSO);
+                linkedCharactor.AddSkill(KeyCode.A, perfectShotSkill);
+            }
+
         }
 
 

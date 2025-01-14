@@ -10,7 +10,7 @@ namespace ONE
     [System.Serializable]
     public class SkillDataDTO : GameDataDTO
     {
-        public List<SkillDataSO> skillDatas = new List<SkillDataSO>();
+        public Dictionary<string, SkillDataSO> skillDatas = new Dictionary<string, SkillDataSO>();
     }
 
 
