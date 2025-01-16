@@ -85,14 +85,23 @@ namespace ONE
             }
         }
 
-        public void UpdateSkillSlot(KeyCode key)
+        public void Update()
         {
-            // if (skillSlots.TryGetValue(key, out GameObject slot) && skillDatas.TryGetValue(key, out SkillDataSO data))
-            // {
-
-            //     slot.GetComponent<Image>().sprite = data.Icon;      // 아이콘 업데이트
-            //     // slot.cooldown.text = data.Cooldown;  // 스킬 이름 업데이트
-            // }
+            foreach (var key in skillSlots.Keys)
+            {
+                if (skillDatas.TryGetValue(key, out SkillBase skill))
+                {
+                    GameObject slot = skillSlots.GetValueOrDefault(key);
+                    if (skill.CurrentCoolDown > 0f)
+                    {
+                        slot.transform.Find("CoolDown").GetComponent<TextMeshProUGUI>().text = $"{Mathf.CeilToInt(skill.CurrentCoolDown)}s";
+                    }
+                    else
+                    {
+                        slot.transform.Find("CoolDown").GetComponent<TextMeshProUGUI>().text = "";
+                    }
+                }
+            }
         }
 
     }
