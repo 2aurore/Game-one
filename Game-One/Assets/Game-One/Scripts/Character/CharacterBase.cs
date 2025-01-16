@@ -83,6 +83,7 @@ namespace ONE
 
             IngameUI.Instance.SetHP(currentHP, maxHP);
             IngameUI.Instance.SetSP(currentSP, maxSP);
+            IngameUI.Instance.Init(skills);
         }
 
         private void Update()

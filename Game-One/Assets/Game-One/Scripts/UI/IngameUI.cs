@@ -37,22 +37,28 @@ namespace ONE
             KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.F
         };
 
+        public SkillDataDTO SkillDataDTO { get; private set; } = new SkillDataDTO();
+
         public Dictionary<KeyCode, GameObject> skillSlots = new Dictionary<KeyCode, GameObject>(); // 슬롯 관리
-        public Dictionary<KeyCode, SkillDataSO> skillDatas = new Dictionary<KeyCode, SkillDataSO>(); // 데이터 관리
+        public Dictionary<KeyCode, SkillBase> skillDatas; // 데이터 관리
 
         [SerializeField] private List<GameObject> slotObjects; // 슬롯 리스트
-        [SerializeField] private List<SkillDataSO> dataObjects; // 데이터 리스트
+        // [SerializeField] private List<SkillDataSO> dataObjects = SkillDataDTO.skillDatas; // 데이터 리스트
 
 
-        private void Start()
+
+        public void Init(Dictionary<KeyCode, SkillBase> skills)
         {
+            Debug.Log("IngameUI Start");
+
+            skillDatas = skills;
+
             InitializeDictionaries();
             UpdateAllSkillSlots();
         }
 
         private void InitializeDictionaries()
         {
-
             // KeyCode와 슬롯 매핑
             for (int i = 0; i < keyCodes.Length; i++)
             {
@@ -62,32 +68,30 @@ namespace ONE
                 }
             }
 
-            // KeyCode와 데이터 매핑
-            for (int i = 0; i < keyCodes.Length; i++)
-            {
-                if (i < dataObjects.Count)
-                {
-                    skillDatas[keyCodes[i]] = dataObjects[i];
-                }
-            }
         }
         public void UpdateAllSkillSlots()
         {
+            if (skillDatas == null)
+                return;
+
             foreach (var key in skillSlots.Keys)
             {
-                if (skillDatas.ContainsKey(key))
+                if (skillDatas.TryGetValue(key, out SkillBase skill))
                 {
-                    UpdateSkillSlot(key);
+                    GameObject slot = skillSlots.GetValueOrDefault(key);
+                    slot.transform.Find("Image").GetComponent<Image>().sprite = skill.SkillData.Icon;
+                    // UpdateSkillSlot(key);
                 }
             }
         }
 
         public void UpdateSkillSlot(KeyCode key)
         {
-            // if (skillSlots.TryGetValue(key, out SkillSlot slot) && skillDatas.TryGetValue(key, out SkillData data))
+            // if (skillSlots.TryGetValue(key, out GameObject slot) && skillDatas.TryGetValue(key, out SkillDataSO data))
             // {
-            //     slot.icon.sprite = data.skillIcon;      // 아이콘 업데이트
-            //     slot.cooldown.text = data.cooldown;  // 스킬 이름 업데이트
+
+            //     slot.GetComponent<Image>().sprite = data.Icon;      // 아이콘 업데이트
+            //     // slot.cooldown.text = data.Cooldown;  // 스킬 이름 업데이트
             // }
         }
 
