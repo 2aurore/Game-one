@@ -211,11 +211,13 @@ namespace ONE
             if (IsProgressingAction)
                 return;
 
+            IsProgressingAction = true;
+
             animator.Play("Defalut Attack");
             navAgent.ResetPath();
             transform.rotation = Quaternion.Euler(0f, yAxisAngle, 0f);
 
-            weapon_Gun.Fire();
+            weapon_Gun.Fire(yAxisAngle);
         }
 
         /// <summary>
@@ -243,7 +245,6 @@ namespace ONE
         public void ExecuteSkillAnimation(string skillAnimationStateName)
         {
             animator.Play(skillAnimationStateName);
-            // animator.SetBool("IsAttacking", true);
         }
     }
 }

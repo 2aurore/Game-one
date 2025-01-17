@@ -115,7 +115,6 @@ namespace ONE
         /// </summary>
         private void KeyInputEvent(KeyCode keyCode)
         {
-            Debug.Log($"Key pressed: {keyCode}");
             switch (keyCode)
             {
                 case KeyCode.Q:

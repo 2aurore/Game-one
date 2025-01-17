@@ -11,8 +11,10 @@ namespace ONE
         public Transform firePoint;
 
 
-        public void Fire()
+        public void Fire(float yAxisAngle)
         {
+            // bullet을 마우스 포인터 방향으로 발사하기 위해 rotation 설정
+            firePoint.rotation = Quaternion.Euler(0f, yAxisAngle, 0f);
             GameObject newBullet = Instantiate(bullet, firePoint.position, firePoint.rotation);
             newBullet.gameObject.SetActive(true);
 

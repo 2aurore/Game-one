@@ -6,6 +6,12 @@ namespace ONE
 {
     public class Projectile : MonoBehaviour
     {
+        void OnDrawGizmos()
+        {
+            Gizmos.color = new Color(0f, 1f, 0f, 0.7f); // 녹색
+            Gizmos.DrawSphere(gameObject.transform.root.position, 0.5f);
+        }
+
         public float damage = 1f;
         public float lifeTime = 5f;
 
