@@ -30,8 +30,6 @@ namespace ONE
         }
 
 
-
-
         private readonly KeyCode[] keyCodes =
         {
             KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.R,
@@ -41,25 +39,16 @@ namespace ONE
 
         public SkillDataDTO SkillDataDTO { get; private set; } = new SkillDataDTO();
 
-        public Dictionary<KeyCode, GameObject> skillSlots_backup = new Dictionary<KeyCode, GameObject>(); // 슬롯 관리
-        public Dictionary<KeyCode, SkillBase> skillDatas; // 데이터 관리
-
-        [SerializeField] private List<GameObject> slotObjects; // 슬롯 리스트
-        // [SerializeField] private List<SkillDataSO> dataObjects = SkillDataDTO.skillDatas; // 데이터 리스트
-
-        public SerializableDictionary<KeyCode, IngameUI_SkillSlotItem> skillSlots = new SerializableDictionary<KeyCode, IngameUI_SkillSlotItem>();
+        public Dictionary<KeyCode, GameObject> skillSlots_backup = new Dictionary<KeyCode, GameObject>();
+        public Dictionary<KeyCode, SkillBase> skillDatas; // 스킬 데이터 관리
+        public SerializableDictionary<KeyCode, IngameUI_SkillSlotItem> skillSlots = new SerializableDictionary<KeyCode, IngameUI_SkillSlotItem>();  // 슬롯 관리
 
 
         public void Init(Dictionary<KeyCode, SkillBase> skills)
         {
-            Debug.Log("IngameUI Start");
-
             skillDatas = skills;
 
             InitializeSkillData();
-
-            // InitializeDictionaries();
-            // UpdateAllSkillSlots();
         }
 
         private void InitializeSkillData()
@@ -68,58 +57,23 @@ namespace ONE
             {
                 if (skillDatas.TryGetValue(keycode, out var skillDataSO))
                 {
-                    Debug.Log("skillDataSO:::" + skillDataSO);
                     if (skillSlots.TryGetValue(keycode, out var skillSlotSO))
                     {
-                        Debug.Log("skillSlotSO:::" + skillSlotSO);
                         skillSlotSO.SetSkillData(skillDataSO.SkillData.Icon, keycode.ToString());
                     }
                 }
             }
         }
 
-        private void InitializeDictionaries()
-        {
-            // KeyCode와 슬롯 매핑
-            for (int i = 0; i < keyCodes.Length; i++)
-            {
-                if (i < slotObjects.Count)
-                {
-                    skillSlots_backup[keyCodes[i]] = slotObjects[i];
-                }
-            }
-
-        }
-        public void UpdateAllSkillSlots()
-        {
-            if (skillDatas == null)
-                return;
-
-            foreach (var key in skillSlots_backup.Keys)
-            {
-                if (skillDatas.TryGetValue(key, out SkillBase skill))
-                {
-                    GameObject slot = skillSlots_backup.GetValueOrDefault(key);
-                    slot.transform.Find("Image").GetComponent<Image>().sprite = skill.SkillData.Icon;
-                    // UpdateSkillSlot(key);
-                }
-            }
-        }
-
         public void Update()
         {
-            foreach (var key in skillSlots_backup.Keys)
+            foreach (var keycode in keyCodes)
             {
-                if (skillDatas.TryGetValue(key, out SkillBase skill))
+                if (skillDatas.TryGetValue(keycode, out var skillDataSO))
                 {
-                    GameObject slot = skillSlots_backup.GetValueOrDefault(key);
-                    if (skill.CurrentCoolDown > 0f)
+                    if (skillSlots.TryGetValue(keycode, out var skillSlotSO))
                     {
-                        slot.transform.Find("CoolDown").GetComponent<TextMeshProUGUI>().text = $"{Mathf.CeilToInt(skill.CurrentCoolDown)}s";
-                    }
-                    else
-                    {
-                        slot.transform.Find("CoolDown").GetComponent<TextMeshProUGUI>().text = "";
+                        skillSlotSO.SetCoolTime(skillDataSO.CurrentCoolDown, skillDataSO.SkillCoolDown);
                     }
                 }
             }

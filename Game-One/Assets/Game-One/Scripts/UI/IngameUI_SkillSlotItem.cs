@@ -17,7 +17,7 @@ namespace ONE
         public void SetCoolTime(float remain, float max)
         {
             coolTimeText.gameObject.SetActive(remain > 0f);
-            coolTimeText.text = $"{remain:0}s";
+            coolTimeText.text = $"{Mathf.CeilToInt(remain)}s";
             coolTimeDimd.fillAmount = remain / max;
         }
 
