@@ -3003,7 +3003,7 @@ PrefabInstance:
     - target: {fileID: 7775885665973488836, guid: 68e4d46497bce944d83aca33b197d666, type: 3}
       propertyPath: skillIcon
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 9192856120082684111}
     - target: {fileID: 9048813570406628233, guid: 68e4d46497bce944d83aca33b197d666, type: 3}
       propertyPath: m_Type
       value: 0

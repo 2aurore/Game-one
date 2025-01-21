@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -37,6 +38,7 @@ namespace ONE
             KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.F
         };
 
+
         public SkillDataDTO SkillDataDTO { get; private set; } = new SkillDataDTO();
 
         public Dictionary<KeyCode, GameObject> skillSlots_backup = new Dictionary<KeyCode, GameObject>(); // 슬롯 관리
@@ -47,14 +49,33 @@ namespace ONE
 
         public SerializableDictionary<KeyCode, IngameUI_SkillSlotItem> skillSlots = new SerializableDictionary<KeyCode, IngameUI_SkillSlotItem>();
 
+
         public void Init(Dictionary<KeyCode, SkillBase> skills)
         {
             Debug.Log("IngameUI Start");
 
             skillDatas = skills;
 
-            InitializeDictionaries();
-            UpdateAllSkillSlots();
+            InitializeSkillData();
+
+            // InitializeDictionaries();
+            // UpdateAllSkillSlots();
+        }
+
+        private void InitializeSkillData()
+        {
+            foreach (var keycode in keyCodes)
+            {
+                if (skillDatas.TryGetValue(keycode, out var skillDataSO))
+                {
+                    Debug.Log("skillDataSO:::" + skillDataSO);
+                    if (skillSlots.TryGetValue(keycode, out var skillSlotSO))
+                    {
+                        Debug.Log("skillSlotSO:::" + skillSlotSO);
+                        skillSlotSO.SetSkillData(skillDataSO.SkillData.Icon, keycode.ToString());
+                    }
+                }
+            }
         }
 
         private void InitializeDictionaries()
