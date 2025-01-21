@@ -8,12 +8,14 @@ namespace ONE
     public class CharactorController : MonoBehaviour
     {
         private CharacterBase linkedCharactor;
+        private InteractionSensor interactionSensor;
 
         public LayerMask groundLayer;
 
         private void Awake()
         {
             linkedCharactor = GetComponent<CharacterBase>();
+            interactionSensor = GetComponent<InteractionSensor>();
         }
 
         private void Start()
@@ -22,8 +24,24 @@ namespace ONE
             InputSystem.Singleton.OnRightMouseButtonDown += RightMouseButtonEvent;
             InputSystem.Singleton.OnSpaceInput += SpaceInputEvent;
             InputSystem.Singleton.OnKeyInput += KeyInputEvent;
+            InputSystem.Singleton.OnLootingInput += LootingInputEvent;
 
             InitializeSkills();
+
+            linkedCharactor.Initialize();
+            IngameUI.Instance.SetHP(linkedCharactor.currentHP, linkedCharactor.maxHP);
+            IngameUI.Instance.SetSP(linkedCharactor.currentSP, linkedCharactor.maxSP);
+            IngameUI.Instance.Init(linkedCharactor.skills);
+        }
+
+        private void LootingInputEvent()
+        {
+            if (interactionSensor.detectedPickupItems.Count <= 0)
+                return;
+
+            IBox firstPickupItem = interactionSensor.detectedPickupItems[0];
+            linkedCharactor.Looting(firstPickupItem.InterationPoint.position, firstPickupItem.InterationPoint.rotation);
+
         }
 
         private void InitializeSkills()
@@ -89,13 +107,8 @@ namespace ONE
                 InputSystem.Singleton.OnRightMouseButtonDown -= RightMouseButtonEvent;
                 InputSystem.Singleton.OnSpaceInput -= SpaceInputEvent;
                 InputSystem.Singleton.OnKeyInput -= KeyInputEvent;
+                InputSystem.Singleton.OnLootingInput -= LootingInputEvent;
             }
-        }
-
-
-        private void Update()
-        {
-
         }
 
         private void SpaceInputEvent()

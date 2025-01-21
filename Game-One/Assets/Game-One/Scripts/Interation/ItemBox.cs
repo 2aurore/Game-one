@@ -9,7 +9,10 @@ namespace ONE
         public string itemName;
         public string Name => itemName;
 
+        public Transform InterationPoint => interactionPoint;
+
         public SphereEffect sphereEffect;
+        public Transform interactionPoint;
         private Animator animator;
 
         private void Awake()

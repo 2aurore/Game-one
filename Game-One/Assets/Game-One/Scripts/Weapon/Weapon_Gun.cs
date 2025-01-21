@@ -19,7 +19,7 @@ namespace ONE
             newBullet.gameObject.SetActive(true);
 
             Rigidbody bulletRigidbody = newBullet.GetComponent<Rigidbody>();
-            bulletRigidbody.AddForce(firePoint.forward * 10f, ForceMode.Impulse);
+            bulletRigidbody.AddForce(firePoint.forward * 15f, ForceMode.Impulse);
         }
     }
 }

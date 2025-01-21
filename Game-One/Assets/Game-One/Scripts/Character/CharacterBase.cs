@@ -40,10 +40,16 @@ namespace ONE
         public bool IsEquip { get; private set; }
         public bool IsRun { get; private set; }
         public bool IsProgressingAction { get; set; }
+        public bool IsLooting { get; private set; }
+
+        public Transform firePointLeft;
+        public Transform firePointRight;
 
         private Animator animator;
         private Weapon_Gun weapon_Gun;
         private NavMeshAgent navAgent;
+        private AnimationEventListener animationEventListener;
+
         private Vector3 inputDirection;
 
 
@@ -55,7 +61,10 @@ namespace ONE
         public float currentSP;
         public float maxSP;
 
-        private Dictionary<KeyCode, SkillBase> skills = new Dictionary<KeyCode, SkillBase>();
+        private Vector3 lootingPosition;
+        private Quaternion lootingRotation;
+
+        public Dictionary<KeyCode, SkillBase> skills = new Dictionary<KeyCode, SkillBase>();
         public void AddSkill(KeyCode keyCode, SkillBase skillBase)
         {
             skills.TryAdd(keyCode, skillBase);
@@ -71,19 +80,42 @@ namespace ONE
             animator = GetComponent<Animator>();
             navAgent = GetComponent<NavMeshAgent>();
             weapon_Gun = GetComponent<Weapon_Gun>();
+            animationEventListener = GetComponent<AnimationEventListener>();
+            animationEventListener.OnReceiveAnimationEvent += OnReceiveAnimationEvent;
 
             navAgent.updatePosition = false;
             navAgent.updateRotation = false;
         }
 
-        private void Start()
+        private void OnReceiveAnimationEvent(string eventKey)
+        {
+            switch (eventKey)
+            {
+                case "DeathFire":
+
+                    break;
+                case "Fire Left":
+                    {
+                        GameObject newMuzzleEffect = EffectManager.Instance.GetEffect("GoldFire_Muzzle");
+                        newMuzzleEffect.transform.SetPositionAndRotation(firePointLeft.position, firePointLeft.rotation);
+                        newMuzzleEffect.transform.SetParent(firePointLeft);
+                    }
+                    break;
+                case "Fire Right":
+                    {
+                        GameObject newMuzzleEffect = EffectManager.Instance.GetEffect("GoldFire_Muzzle");
+                        newMuzzleEffect.transform.SetPositionAndRotation(firePointRight.position, firePointRight.rotation);
+                        newMuzzleEffect.transform.SetParent(firePointRight);
+                    }
+                    break;
+
+            }
+        }
+
+        public void Initialize()
         {
             currentHP = maxHP = defaultStat.MaxHP;
             currentSP = maxSP = defaultStat.MaxSP;
-
-            IngameUI.Instance.SetHP(currentHP, maxHP);
-            IngameUI.Instance.SetSP(currentSP, maxSP);
-            IngameUI.Instance.Init(skills);
         }
 
         private void Update()
@@ -96,7 +128,7 @@ namespace ONE
             {
                 if (Time.time - dashStartTime < dashDuration)
                 {
-                    transform.position += transform.forward * dashSpeed * Time.deltaTime;
+                    Teleport(transform.position + (transform.forward * dashSpeed * Time.deltaTime));
                 }
                 else
                 {
@@ -107,7 +139,19 @@ namespace ONE
 
             animator.SetFloat("Equip Blend", IsEquip ? 1.0f : 0.0f);
             animator.SetFloat("Running Blend", IsRun ? 1.0f : 0.0f);
+            UpdateLootingState();
+        }
 
+        private void UpdateLootingState()
+        {
+            if (IsLooting)
+            {
+                // 상자 위치로 스르륵 움직이게 처리해보자
+                Vector3 blendPosition = Vector3.Lerp(transform.position, lootingPosition, Time.deltaTime * 10f);
+                Quaternion blendRotation = Quaternion.Slerp(transform.rotation, lootingRotation, Time.deltaTime * 10f);
+
+                Teleport(blendPosition, blendRotation);
+            }
         }
 
         /// <summary>
@@ -193,12 +237,15 @@ namespace ONE
             transform.rotation = Quaternion.Euler(0f, yAxisAngle, 0f);
         }
 
-        public void Looting()
+        public void Looting(Vector3 position, Quaternion rotation)
         {
             if (isDashing || IsProgressingAction)
                 return;
 
+            lootingPosition = position;
+            lootingRotation = rotation;
 
+            IsLooting = true;
             animator.SetTrigger("Loot Trigger");
             navAgent.ResetPath();
         }
@@ -246,5 +293,27 @@ namespace ONE
         {
             animator.Play(skillAnimationStateName);
         }
+
+        public void SetLootingComplete()
+        {
+            IsLooting = false;
+        }
+
+        public void Teleport(Vector3 position)
+        {
+            transform.position = position;
+            navAgent.Warp(position);
+        }
+        public void Teleport(Vector3 position, Quaternion rotation)
+        {
+            // transform.position = position;
+            // transform.rotation = rotation;
+            // 위의 두개 대신 SetPositionAndRotation 메소드를 사용할때 성능 부분에서 향상시킬 수 있음
+            // 하위 모든 position과 rotation을 변경하기 때문에 메소드를 활용해서 1회만 업데이트 시킬수 잇도록 함
+
+            transform.SetPositionAndRotation(position, rotation);
+            navAgent.Warp(position);
+        }
+
     }
 }

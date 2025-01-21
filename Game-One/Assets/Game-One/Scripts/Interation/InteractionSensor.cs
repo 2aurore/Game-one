@@ -5,20 +5,14 @@ using UnityEngine;
 
 namespace ONE
 {
-    public class IntractionSensor : MonoBehaviour
+    public class InteractionSensor : MonoBehaviour
     {
         public float sensorRadius = 3f;
         public LayerMask sensorLayers;
 
         public List<GameObject> detectedObjects = new List<GameObject>();
-        private List<IBox> detectedPickupItems = new List<IBox>();
+        public List<IBox> detectedPickupItems = new List<IBox>();
 
-        private CharacterBase linkedCharactor;
-
-        private void Awake()
-        {
-            linkedCharactor = GetComponent<CharacterBase>();
-        }
 
         private void Update()
         {
@@ -37,22 +31,6 @@ namespace ONE
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                for (int i = 0; i < detectedPickupItems.Count; i++)
-                {
-                    linkedCharactor.Looting();
-
-                    StartCoroutine(Looting(i));
-                }
-            }
-        }
-
-        public IEnumerator Looting(int i)
-        {
-            yield return new WaitForSecondsRealtime(2.5f);
-
-            detectedPickupItems[i].Open();
         }
 
     }

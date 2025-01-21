@@ -16,6 +16,7 @@ namespace ONE
         public System.Action OnSpaceInput;
 
         public System.Action<KeyCode> OnKeyInput;
+        public System.Action OnLootingInput;
 
 
         private void Update()
@@ -31,6 +32,8 @@ namespace ONE
 
             // 마우스 휠 스크롤 처리
             if (Input.mouseScrollDelta.y != 0) OnScrollWheel?.Invoke(Input.mouseScrollDelta.y);
+
+            if (Input.GetKeyDown(KeyCode.G)) OnLootingInput?.Invoke();
 
             // QWERASDF 키 입력 처리
             CheckKeyInput(KeyCode.Q);

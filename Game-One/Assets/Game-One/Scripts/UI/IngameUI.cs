@@ -39,13 +39,13 @@ namespace ONE
 
         public SkillDataDTO SkillDataDTO { get; private set; } = new SkillDataDTO();
 
-        public Dictionary<KeyCode, GameObject> skillSlots = new Dictionary<KeyCode, GameObject>(); // 슬롯 관리
+        public Dictionary<KeyCode, GameObject> skillSlots_backup = new Dictionary<KeyCode, GameObject>(); // 슬롯 관리
         public Dictionary<KeyCode, SkillBase> skillDatas; // 데이터 관리
 
         [SerializeField] private List<GameObject> slotObjects; // 슬롯 리스트
         // [SerializeField] private List<SkillDataSO> dataObjects = SkillDataDTO.skillDatas; // 데이터 리스트
 
-
+        public SerializableDictionary<KeyCode, IngameUI_SkillSlotItem> skillSlots = new SerializableDictionary<KeyCode, IngameUI_SkillSlotItem>();
 
         public void Init(Dictionary<KeyCode, SkillBase> skills)
         {
@@ -64,7 +64,7 @@ namespace ONE
             {
                 if (i < slotObjects.Count)
                 {
-                    skillSlots[keyCodes[i]] = slotObjects[i];
+                    skillSlots_backup[keyCodes[i]] = slotObjects[i];
                 }
             }
 
@@ -74,11 +74,11 @@ namespace ONE
             if (skillDatas == null)
                 return;
 
-            foreach (var key in skillSlots.Keys)
+            foreach (var key in skillSlots_backup.Keys)
             {
                 if (skillDatas.TryGetValue(key, out SkillBase skill))
                 {
-                    GameObject slot = skillSlots.GetValueOrDefault(key);
+                    GameObject slot = skillSlots_backup.GetValueOrDefault(key);
                     slot.transform.Find("Image").GetComponent<Image>().sprite = skill.SkillData.Icon;
                     // UpdateSkillSlot(key);
                 }
@@ -87,11 +87,11 @@ namespace ONE
 
         public void Update()
         {
-            foreach (var key in skillSlots.Keys)
+            foreach (var key in skillSlots_backup.Keys)
             {
                 if (skillDatas.TryGetValue(key, out SkillBase skill))
                 {
-                    GameObject slot = skillSlots.GetValueOrDefault(key);
+                    GameObject slot = skillSlots_backup.GetValueOrDefault(key);
                     if (skill.CurrentCoolDown > 0f)
                     {
                         slot.transform.Find("CoolDown").GetComponent<TextMeshProUGUI>().text = $"{Mathf.CeilToInt(skill.CurrentCoolDown)}s";
