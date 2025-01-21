@@ -41,7 +41,7 @@ namespace ONE
 
             IBox firstPickupItem = interactionSensor.detectedPickupItems[0];
             linkedCharactor.Looting(firstPickupItem.InterationPoint.position, firstPickupItem.InterationPoint.rotation);
-
+            firstPickupItem.Open();
         }
 
         private void InitializeSkills()

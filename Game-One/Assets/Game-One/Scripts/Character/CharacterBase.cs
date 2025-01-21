@@ -91,9 +91,6 @@ namespace ONE
         {
             switch (eventKey)
             {
-                case "DeathFire":
-
-                    break;
                 case "Fire Left":
                     {
                         GameObject newMuzzleEffect = EffectManager.Instance.GetEffect("GoldFire_Muzzle");
