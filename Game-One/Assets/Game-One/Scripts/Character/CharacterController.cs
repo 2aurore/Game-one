@@ -123,9 +123,7 @@ namespace ONE
 
         }
 
-        /// <summary>
-        /// 키보드 입력 이벤트 일괄 등록
-        /// </summary>
+        /// <summary> 키보드 입력 이벤트 일괄 등록 </summary>
         private void KeyInputEvent(KeyCode keyCode)
         {
             switch (keyCode)
@@ -145,9 +143,7 @@ namespace ONE
         }
 
 
-        /// <summary>
-        /// QWERASDF 스킬 이벤트 
-        /// </summary>
+        /// <summary> QWERASDF 스킬 이벤트  </summary>
         private void KeyboardSkillKeyEvent(KeyCode keyCode)
         {
             // TODO: Keycode 값에 해당하는 스킬의 쿨다운 값을 확인해서 스킬을 사용할 수 있는 상태인지 확인하기
@@ -162,9 +158,7 @@ namespace ONE
                 linkedCharactor.SkillAttack(yAxisAngle, keyCode);
             }
         }
-        /// <summary>
-        /// 마우스 좌클릭 시 기본 공격 모션 이벤트
-        /// </summary>
+        /// <summary> 마우스 좌클릭 시 기본 공격 모션 이벤트 </summary>
         private void LeftMouseButtonEvent()
         {
             // 마우스 포인터 방향으로 공격액션 수행하도록 적용
@@ -176,9 +170,7 @@ namespace ONE
                 linkedCharactor.NormalAttack(yAxisAngle);
             }
         }
-        /// <summary>
-        /// 마우스 우클릭 시 캐릭터 이동 이벤트
-        /// </summary>
+        /// <summary> 마우스 우클릭 시 캐릭터 이동 이벤트 </summary>
         private void RightMouseButtonEvent()
         {
             // TODO : 카메라 상에서 보았을 때, 우클릭 위치[스크린상에서의 위치] => 3D 공간에서의 위치로 변환
