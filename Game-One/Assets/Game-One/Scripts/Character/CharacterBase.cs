@@ -61,6 +61,14 @@ namespace ONE
         public float currentSP;
         public float maxSP;
 
+        // dash variable
+        public float dashDuration = 1.5f;
+        public float dashSpeed = 2f;
+        private bool isDashing = false;
+        private float dashStartTime = 0f;
+
+        public float shotDistance = 50f;
+
         private Vector3 lootingPosition;
         private Quaternion lootingRotation;
 
@@ -87,27 +95,6 @@ namespace ONE
             navAgent.updateRotation = false;
         }
 
-        private void OnReceiveAnimationEvent(string eventKey)
-        {
-            switch (eventKey)
-            {
-                case "Fire Left":
-                    {
-                        GameObject newMuzzleEffect = EffectManager.Instance.GetEffect("GoldFire_Muzzle");
-                        newMuzzleEffect.transform.SetPositionAndRotation(firePointLeft.position, firePointLeft.rotation);
-                        newMuzzleEffect.transform.SetParent(firePointLeft);
-                    }
-                    break;
-                case "Fire Right":
-                    {
-                        GameObject newMuzzleEffect = EffectManager.Instance.GetEffect("GoldFire_Muzzle");
-                        newMuzzleEffect.transform.SetPositionAndRotation(firePointRight.position, firePointRight.rotation);
-                        newMuzzleEffect.transform.SetParent(firePointRight);
-                    }
-                    break;
-
-            }
-        }
 
         public void Initialize()
         {
@@ -151,9 +138,7 @@ namespace ONE
             }
         }
 
-        /// <summary>
-        /// skill 재사용 대기시간 update
-        /// </summary>
+        /// <summary> skill 재사용 대기시간 update </summary>
         private void UpdateSkills(float deltaTime)
         {
             foreach (var skill in skills.Values)
@@ -214,10 +199,6 @@ namespace ONE
             navAgent.SetDestination(destination);
         }
 
-        public float dashDuration = 1.5f;
-        public float dashSpeed = 2f;
-        private bool isDashing = false;
-        private float dashStartTime = 0f;
         public void Dash(float yAxisAngle)
         {
             if (isDashing)
@@ -247,9 +228,31 @@ namespace ONE
             navAgent.ResetPath();
         }
 
-        /// <summary>
-        /// 기본 공격 method
-        /// </summary>
+
+        /// <summary> 총구에 발사 이펙트 적용 </summary>
+        private void OnReceiveAnimationEvent(string eventKey)
+        {
+            switch (eventKey)
+            {
+                case "Fire Left":
+                    {
+                        GameObject newMuzzleEffect = EffectManager.Instance.GetEffect("GoldFire_Muzzle");
+                        newMuzzleEffect.transform.SetParent(firePointLeft);
+                        newMuzzleEffect.transform.SetPositionAndRotation(firePointLeft.position, firePointLeft.rotation);
+                    }
+                    break;
+                case "Fire Right":
+                    {
+                        GameObject newMuzzleEffect = EffectManager.Instance.GetEffect("GoldFire_Muzzle");
+                        newMuzzleEffect.transform.SetParent(firePointRight);
+                        newMuzzleEffect.transform.SetPositionAndRotation(firePointRight.position, firePointRight.rotation);
+                    }
+                    break;
+
+            }
+        }
+
+        /// <summary> 기본 공격 method </summary>
         public void NormalAttack(float yAxisAngle)
         {
             if (IsProgressingAction)
@@ -261,12 +264,28 @@ namespace ONE
             navAgent.ResetPath();
             transform.rotation = Quaternion.Euler(0f, yAxisAngle, 0f);
 
-            weapon_Gun.Fire(yAxisAngle);
+            OnReceiveAnimationEvent("Fire Left");
+
+            Ray ray = new Ray(transform.position, transform.forward);
+            LayerMask mask = LayerMask.GetMask("Monster");
+            RaycastHit[] raycastHits = Physics.RaycastAll(ray, shotDistance, mask);
+
+            // 거리에 따라 배열을 정렬
+            System.Array.Sort(raycastHits, (x, y) => x.distance.CompareTo(y.distance));
+
+            if (raycastHits.Length > 0)
+            {
+                foreach (RaycastHit hit in raycastHits)
+                {
+                    if (hit.collider.transform.root.TryGetComponent(out IDamage damageInterface))
+                    {
+                        damageInterface.ApplyDamage(10f);
+                    }
+                }
+            }
         }
 
-        /// <summary>
-        /// 스킬 공격 method
-        /// </summary>
+        /// <summary> 스킬 공격 method </summary>
         public void SkillAttack(float yAxisAngle, KeyCode keyCode)
         {
             if (IsProgressingAction)
