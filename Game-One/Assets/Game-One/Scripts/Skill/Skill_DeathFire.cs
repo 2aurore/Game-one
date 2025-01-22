@@ -42,7 +42,7 @@ namespace ONE
             {
                 foreach (RaycastHit hit in raycastHits)
                 {
-                    Debug.Log(hit);
+                    // Debug.Log(hit);
                     if (hit.collider.transform.root.TryGetComponent(out IDamage damageInterface))
                     {
                         damageInterface.ApplyDamage(SkillData.Damage);
