@@ -8,34 +8,6 @@ namespace ONE
 {
     public class CharacterBase : MonoBehaviour
     {
-        // void OnDrawGizmos()
-        // {
-        //     if (navAgent && navAgent.path.corners.Length > 0)
-        //     {
-        //         for (int i = 0; i < navAgent.path.corners.Length; i++)
-        //         {
-        //             if (i == 0)
-        //             {    // 시작점
-        //                 Gizmos.color = new Color(1f, 0f, 0f, 0.7f); // 빨강강
-        //             }
-        //             else if (i == navAgent.path.corners.Length - 1)
-        //             {   // 도착점
-        //                 Gizmos.color = new Color(0f, 1f, 0f, 0.7f); // 녹색색
-        //             }
-        //             else
-        //             {   // 중간 지점들
-        //                 Gizmos.color = new Color(0f, 0f, 1f, 0.7f); // 파랑
-        //             }
-        //             Gizmos.DrawSphere(navAgent.path.corners[i], 0.5f);
-        //         }
-
-        //         navAgent.steeringTarget => corners[1]
-        //         Gizmos.color = new Color(1f, 1f, 0f, 0.7f);
-        //         Gizmos.DrawCube(navAgent.steeringTarget, Vector3.one * 0.7f);
-
-        //     }
-        // }
-
 
         public bool IsEquip { get; private set; }
         public bool IsRun { get; private set; }
