@@ -24,15 +24,16 @@ namespace ONE
         {
             for (int i = 0; i < repeatCount; i++)
             {
-                ApplayDamage(actor);
+                ApplyDamage(actor);
                 yield return new WaitForSeconds(interval);
             }
         }
 
-        private void ApplayDamage(CharacterBase actor)
+        private void ApplyDamage(CharacterBase actor)
         {
             LayerMask mask = LayerMask.GetMask("Monster");
-            RaycastHit[] raycastHits = Physics.SphereCastAll(actor.transform.position, SkillData.Range, Vector3.up, 0, mask);
+            RaycastHit[] raycastHits = Physics.SphereCastAll(
+                actor.transform.position, SkillData.Range, Vector3.up, 0, mask);
 
             // 거리에 따라 배열을 정렬
             System.Array.Sort(raycastHits, (x, y) => x.distance.CompareTo(y.distance));
