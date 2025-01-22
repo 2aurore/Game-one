@@ -79,19 +79,19 @@ namespace ONE
             }
             if (GameDataModel.Singleton.GetSkillData("TargetDown", out var targetDownDataSO))
             {
-                var targetDownSkill = new Skill_PerfectShot();
+                var targetDownSkill = new Skill_TargetDown();
                 targetDownSkill.Init(targetDownDataSO);
                 linkedCharactor.AddSkill(KeyCode.S, targetDownSkill);
             }
             if (GameDataModel.Singleton.GetSkillData("Deadshot", out var deadShotDataSO))
             {
-                var deadShotSkill = new Skill_PerfectShot();
+                var deadShotSkill = new Skill_Deadshot();
                 deadShotSkill.Init(deadShotDataSO);
                 linkedCharactor.AddSkill(KeyCode.D, deadShotSkill);
             }
             if (GameDataModel.Singleton.GetSkillData("PhantomStrike", out var phantomStrikeDataSO))
             {
-                var phantomStrikeSkill = new Skill_PerfectShot();
+                var phantomStrikeSkill = new Skill_PhantomStrike();
                 phantomStrikeSkill.Init(phantomStrikeDataSO);
                 linkedCharactor.AddSkill(KeyCode.F, phantomStrikeSkill);
             }
