@@ -14441,6 +14441,7 @@ GameObject:
   - component: {fileID: 4114640001063984612}
   - component: {fileID: 8150076725773506074}
   - component: {fileID: 828822014327085714}
+  - component: {fileID: -9092408438211531320}
   m_Layer: 0
   m_Name: GoldFire_Muzzle
   m_TagString: FX
@@ -19275,3 +19276,15 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &-9092408438211531320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8744403195968471995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0e14f498b3c8df4cb7d3b725d1ad0c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

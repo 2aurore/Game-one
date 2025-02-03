@@ -230,7 +230,10 @@ MonoBehaviour:
   effectContainer:
   - effectId: GoldFire_Muzzle
     effectPrefab: {fileID: 8744403195968471995, guid: 641d09820f8831145b903ea50fb2a6c3, type: 3}
-    lifeTime: 3
+    count: 10
+  ojbectPoolDic:
+    keys: []
+    values: []
 --- !u!4 &124230710
 Transform:
   m_ObjectHideFlags: 0
@@ -649,7 +652,7 @@ Transform:
   m_GameObject: {fileID: 507842719}
   serializedVersion: 2
   m_LocalRotation: {x: 0.046028998, y: -0.102970265, z: 0.080213554, w: 0.9903759}
-  m_LocalPosition: {x: -0.0000006743494, y: -0.0000019463487, z: -0.0000027532546}
+  m_LocalPosition: {x: -0.00000033717447, y: -0.000001751714, z: -0.000002477929}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1433,7 +1436,7 @@ Transform:
   m_GameObject: {fileID: 1091854449}
   serializedVersion: 2
   m_LocalRotation: {x: 0.07086676, y: -0.10602297, z: 0.08696466, w: 0.9880153}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.0000010115245, y: -0.0000009731743, z: -0.0000013766271}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1512,7 +1515,7 @@ Transform:
   m_GameObject: {fileID: 1362229490}
   serializedVersion: 2
   m_LocalRotation: {x: 0.06160564, y: -0.10783276, z: 0.08677372, w: 0.98845696}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.0000010115245, y: -0.0000009731743, z: -0.0000013766271}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3652,7 +3655,7 @@ PrefabInstance:
       addedObject: {fileID: 1800114120}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7621228229813505413, guid: 5f4962f67d6db14408f1f94a87a1bfee, type: 3}
-      insertIndex: -1
+      insertIndex: 2
       addedObject: {fileID: 7286789563137776897}
     - targetCorrespondingSourceObject: {fileID: 7621228229813505413, guid: 5f4962f67d6db14408f1f94a87a1bfee, type: 3}
       insertIndex: -1
