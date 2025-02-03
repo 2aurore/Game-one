@@ -103,6 +103,7 @@ namespace ONE
         // 반환
         private void OnReturnedToPool(GameObject poolGo)
         {
+            poolGo.transform.parent = null;
             poolGo.SetActive(false);
         }
 
