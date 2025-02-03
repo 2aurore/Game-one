@@ -16,5 +16,15 @@ namespace ONE
 
             CurrentCoolDown = SkillCoolDown;
         }
+
+        // private void OnCollisionEnter(Collision other)
+        // {
+        //     Collider[] colliders = Physics.OverlapSphere(transform.position, 5f, 1 << LayerMask.NameToLayer(""), QueryTriggerInteraction.Ignore);
+
+        //     for (int i = 0; i < colliders.Length ; i++)
+        //     {
+
+        //     }
+        // }
     }
 }
