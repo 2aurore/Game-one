@@ -10,7 +10,6 @@ namespace ONE
     {
         public string effectId;
         public GameObject effectPrefab;
-        // public float lifeTime;
         // 몇개를 미리 생성 해놓을건지
         public int count;
     }
@@ -57,19 +56,6 @@ namespace ONE
                 Instance = null;
             }
         }
-
-        // public GameObject GetEffect(string effectId)
-        // {
-        //     var targetEffect = effectContainer.Find(x => x.effectId == effectId);
-        //     var newEffect = Instantiate(targetEffect.effectPrefab);
-
-        //     if (targetEffect.lifeTime > 0)
-        //     {
-        //         Destroy(newEffect, targetEffect.lifeTime);
-        //     }
-
-        //     return newEffect;
-        // }
 
         private void Init()
         {
