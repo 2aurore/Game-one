@@ -15,16 +15,60 @@ namespace ONE
             actor.ExecuteSkillAnimation(this.SkillData.SkillAnimationStateName);
 
             CurrentCoolDown = SkillCoolDown;
+
+            ApplyDamage(actor);
         }
 
-        // private void OnCollisionEnter(Collision other)
-        // {
-        //     Collider[] colliders = Physics.OverlapSphere(transform.position, 5f, 1 << LayerMask.NameToLayer(""), QueryTriggerInteraction.Ignore);
+        Vector3 attackPosition;
+        private void ApplyDamage(CharacterBase actor)
+        {
+            if (Camera.main == null) return;
 
-        //     for (int i = 0; i < colliders.Length ; i++)
-        //     {
+            // 마우스 방향을 구하는 Ray 생성
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Vector3 direction = ray.direction.normalized;
 
-        //     }
-        // }
+            // 캐릭터의 위치와 마우스 포인터의 위치값
+            Vector3 origin = actor.transform.position;
+
+            // 마우스와 캐릭터 사이 거리 측정
+            float mouseDistance = Vector3.Distance(origin, ray.origin);
+
+            // 일정 거리 이상이면 최대 거리로 제한
+            float attackDistance = Mathf.Min(mouseDistance, SkillData.Range);
+
+            // 최종 타격 위치 계산
+            attackPosition = origin + direction * attackDistance;
+
+            LayerMask mask = LayerMask.GetMask("Monster");
+
+            // OverlapSphere로 해당 위치의 콜라이더 검색
+            Collider[] hitColliders = Physics.OverlapSphere(attackPosition, SkillData.Range / 2, mask);
+
+            if (hitColliders.Length > 0)
+            {
+                foreach (Collider hit in hitColliders)
+                {
+                    if (hit.transform.root.TryGetComponent(out IDamage damageInterface))
+                    {
+                        Debug.Log($"적 명중! {hit.name} 에게 데미지 적용");
+                        damageInterface.ApplyDamage(SkillData.Damage);
+                    }
+                }
+            }
+
+            // 디버그용 구체 시각화
+            Debug.DrawRay(origin, direction * attackDistance, Color.red, 1f);
+            Debug.Log($"타격 위치: {attackPosition}");
+        }
+
+        private void OnDrawGizmos()
+        {
+            // 디버그용 구체 시각화
+            Debug.Log($"타격 위치: {attackPosition}");
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(attackPosition, SkillData.Range / 2);
+        }
     }
 }

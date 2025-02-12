@@ -16,5 +16,11 @@ namespace ONE
 
             CurrentCoolDown = SkillCoolDown;
         }
+
+        private void ApplyDamage(CharacterBase actor)
+        {
+
+        }
     }
 }
+

@@ -186,10 +186,10 @@ namespace ONE
         }
 
         private Vector3 lastRightClickPoint;
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = new Color(1f, 0f, 0f, 0.3f);
-            Gizmos.DrawSphere(lastRightClickPoint, 1f);
-        }
+        // private void OnDrawGizmos()
+        // {
+        //     Gizmos.color = new Color(1f, 0f, 0f, 0.3f);
+        //     Gizmos.DrawSphere(lastRightClickPoint, 1f);
+        // }
     }
 }
