@@ -102,7 +102,7 @@ namespace ONE
         {
             if (IsLooting)
             {
-                // 상자 위치로 스르륵 움직이게 처리해보자
+                // lootingPosition 위치로 캐릭터가 스르륵 움직이도록 처리리
                 Vector3 blendPosition = Vector3.Lerp(transform.position, lootingPosition, Time.deltaTime * 10f);
                 Quaternion blendRotation = Quaternion.Slerp(transform.rotation, lootingRotation, Time.deltaTime * 10f);
 
@@ -124,34 +124,51 @@ namespace ONE
 
         private void SynchronizeAnimatorAndAgent()
         {
+            // NavMeshAgent의 다음 위치와 현재 위치 사이의 차이를 계산
             Vector3 worldDeltaPosition = navAgent.nextPosition - transform.position;
+            // y축(높이) 값은 무시하여 평면상의 이동만 고려
             worldDeltaPosition.y = 0f;
 
+            // 월드 좌표의 차이를 캐릭터의 로컬 좌표계로 변환 (우측 및 전방 기준)
             float dx = Vector3.Dot(transform.right, worldDeltaPosition);
             float dy = Vector3.Dot(transform.forward, worldDeltaPosition);
             Vector2 deltaPosition = new Vector2(dx, dy);
 
+            // 부드러운 이동을 위한 보간값 계산 (0.15초 기준으로 정규화)
             float smooth = Mathf.Min(1.0f, Time.deltaTime / 0.15f);
+            // 현재 위치와 목표 위치 사이를 부드럽게 보간
             smoothDeltaPosition = Vector2.Lerp(smoothDeltaPosition, deltaPosition, smooth);
-
+            // 실제 이동 속도 계산
             velocity = smoothDeltaPosition / Time.deltaTime;
+
+            // 목적지에 가까워질수록 속도를 감소시킴
             if (navAgent.remainingDistance <= navAgent.stoppingDistance)
             {
                 velocity = Vector2.Lerp(Vector2.zero, velocity, navAgent.remainingDistance / navAgent.stoppingDistance);
             }
 
+            // 속도와 남은 거리를 기준으로 캐릭터가 이동해야 하는지 결정
             bool shouldMove = velocity.magnitude > 0.5f && navAgent.remainingDistance > navAgent.stoppingDistance;
 
+            // 이동해야 한다면 다음 경로 지점을 향해 캐릭터를 회전
             if (shouldMove)
             {
+                // 다음 경로 지점을 향하는 방향 벡터 계산
                 Vector3 direction = (navAgent.path.corners[1] - transform.position).normalized;
+                // y축(높이) 값은 무시
                 direction.y = 0;
+                // 부드러운 회전을 위해 Slerp 사용
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 10f);
             }
+
+            // 애니메이터에 이동 상태 전달
             animator.SetBool("IsMoving", shouldMove);
+            // 애니메이터에 이동 속도의 크기 전달
             animator.SetFloat("Magnitude", velocity.magnitude > 0f ? velocity.magnitude : 0f);
 
+            // NavMeshAgent와 실제 시각적 위치 사이의 불일치 해결
             float deltaMagnitude = worldDeltaPosition.magnitude;
+            // 위치 차이가 일정 수준 이상이면 위치를 보간하여 조정
             if (deltaMagnitude > navAgent.radius * 0.5f)
             {
                 transform.position = Vector3.Lerp(animator.rootPosition, navAgent.nextPosition, smooth);
