@@ -17,9 +17,10 @@ namespace ONE
 
             // 최적화를 위해 사용할 수 있음
             // if (other.CompareTag("Player"))
-
+            
             if (other.transform.root.TryGetComponent(out CharacterBase characterBase))
             {
+                Debug.Log(characterBase.gameObject.name);
                 if (false == detectedCharacter.Contains(characterBase))
                 {
                     detectedCharacter.Add(characterBase);
