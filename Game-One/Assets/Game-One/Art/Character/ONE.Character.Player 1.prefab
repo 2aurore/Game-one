@@ -79,9 +79,57 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7987588948804026291, guid: 359356c3571bd714d87ff28082ab4f8e, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: -7968681367987289051, guid: 359356c3571bd714d87ff28082ab4f8e, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: -7793669432804790250, guid: 359356c3571bd714d87ff28082ab4f8e, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: -6948372089890086314, guid: 359356c3571bd714d87ff28082ab4f8e, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: -6417975477286608868, guid: 359356c3571bd714d87ff28082ab4f8e, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: -5968416630135424243, guid: 359356c3571bd714d87ff28082ab4f8e, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: -4202989641535651679, guid: 359356c3571bd714d87ff28082ab4f8e, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: -3243897189005061156, guid: 359356c3571bd714d87ff28082ab4f8e, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: -2653989221405153641, guid: 359356c3571bd714d87ff28082ab4f8e, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: -1442014023625165081, guid: 359356c3571bd714d87ff28082ab4f8e, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 359356c3571bd714d87ff28082ab4f8e, type: 3}
       propertyPath: m_Name
       value: ONE.Character.Player 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2077749622446463710, guid: 359356c3571bd714d87ff28082ab4f8e, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2724517230456382475, guid: 359356c3571bd714d87ff28082ab4f8e, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 359356c3571bd714d87ff28082ab4f8e, type: 3}
       propertyPath: m_Controller
@@ -90,6 +138,14 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: 359356c3571bd714d87ff28082ab4f8e, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7283674817264115777, guid: 359356c3571bd714d87ff28082ab4f8e, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8295731371713523531, guid: 359356c3571bd714d87ff28082ab4f8e, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -127,6 +183,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f05585ff69a512418fe7c58ab9f2380, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firePointLeft: {fileID: 0}
+  firePointRight: {fileID: 0}
   defaultStat: {fileID: 0}
   moveSpeed: 2
   currentHP: 0
@@ -135,6 +193,7 @@ MonoBehaviour:
   maxSP: 0
   dashDuration: 1.5
   dashSpeed: 2
+  shotDistance: 50
 --- !u!114 &2563036586434126047
 MonoBehaviour:
   m_ObjectHideFlags: 0
