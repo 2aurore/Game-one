@@ -9,10 +9,14 @@ namespace ONE
         [field: SerializeField]
         public SkillDataDTO SkillDataDTO { get; private set; } = new SkillDataDTO();
 
+        public CharacterDataDto CharacterDataDto { get; private set; } = new CharacterDataDto();
+
         public void Initalize()
         {
             // game data parsing
             SkillDataSO[] loadedDatas = Resources.LoadAll<SkillDataSO>("Game Data/Skill Data/");
+
+
 
             for (int i = 0; i < loadedDatas.Length; i++)
             {
